@@ -4,18 +4,22 @@ import { Brand } from "@/components/site/site-controls";
 import { developerBioUrl, developerEmail, developerWebsite } from "@/lib/product";
 
 export const metadata: Metadata = {
-  title: "Terms — FaceAttend.AI",
+  title: "Terms of Service",
   description:
     "Draft terms for the FaceAttend.AI product website, open-source code, and planned editions.",
+  alternates: {
+    canonical: "/terms",
+  },
   openGraph: {
-    title: "Terms — FaceAttend.AI",
-    description: "Draft product website terms and planned edition availability.",
+    title: "Terms of Service — FaceAttend.AI",
+    description: "Terms of service and planned edition availability for FaceAttend.AI.",
     type: "website",
+    url: "/terms",
   },
   twitter: {
     card: "summary",
-    title: "Terms — FaceAttend.AI",
-    description: "Draft product website terms and planned edition availability.",
+    title: "Terms of Service — FaceAttend.AI",
+    description: "Terms of service and planned edition availability for FaceAttend.AI.",
   },
 };
 

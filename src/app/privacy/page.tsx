@@ -4,18 +4,22 @@ import { Brand } from "@/components/site/site-controls";
 import { developerBioUrl, developerEmail, developerWebsite } from "@/lib/product";
 
 export const metadata: Metadata = {
-  title: "Privacy — FaceAttend.AI",
+  title: "Privacy Policy",
   description:
     "Privacy guidelines and information handling practices for the FaceAttend.AI website and desktop application.",
+  alternates: {
+    canonical: "/privacy",
+  },
   openGraph: {
-    title: "Privacy — FaceAttend.AI",
-    description: "Privacy policy draft for FaceAttend.AI.",
+    title: "Privacy Policy — FaceAttend.AI",
+    description: "Privacy policy and biometric data handling practices for FaceAttend.AI.",
     type: "website",
+    url: "/privacy",
   },
   twitter: {
     card: "summary",
-    title: "Privacy — FaceAttend.AI",
-    description: "Privacy policy draft for FaceAttend.AI.",
+    title: "Privacy Policy — FaceAttend.AI",
+    description: "Privacy policy and biometric data handling practices for FaceAttend.AI.",
   },
 };
 
