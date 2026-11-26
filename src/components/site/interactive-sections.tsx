@@ -23,7 +23,7 @@ import {
   Zap,
 } from "lucide-react";
 import { CopyCode, Demo } from "@/components/site/site-controls";
-import { installCode, recognitionCode } from "@/lib/product";
+import { developerEmail, installCode, recognitionCode } from "@/lib/product";
 import { HeroStarfield } from "@/components/site/hero-starfield";
 
 export function HeroCanvas({ children }: { children: React.ReactNode }) {
@@ -41,9 +41,9 @@ export function HeroCanvas({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={() => setPaused((prev) => !prev)}
-        className="tactile-btn absolute bottom-7 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-night/55 hover:bg-night/75 text-white/85 hover:text-white backdrop-blur-md border border-white/15 px-3.5 py-2 text-xs font-mono cursor-pointer"
+        className="tactile-btn absolute bottom-7 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-foreground backdrop-blur-md border border-border/80 px-4 py-2 text-xs sm:text-sm font-medium shadow-xs cursor-pointer"
       >
-        {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
+        {paused ? <Play className="size-3.5" /> : <Pause className="size-3.5" />}
         <span>{paused ? "Resume motion" : "Pause motion"}</span>
       </button>
     </section>
@@ -56,7 +56,6 @@ const capabilities = [
     name: "Precision AI",
     title: "A familiar face.\nAn instant record.",
     body: "Haar Cascade detection and LBPH recognition bring computer vision to everyday attendance.",
-    tone: "bg-lime",
     specLabel: "Engine",
     specValue: "OpenCV Haar Cascade + LBPH Histograms",
     detail:
@@ -67,7 +66,6 @@ const capabilities = [
     name: "Real-time tracking",
     title: "Less roll call.\nMore real learning.",
     body: "Recognize registered faces directly from a live webcam feed.",
-    tone: "bg-pink",
     specLabel: "Capture",
     specValue: "Live 720p+ webcam frame stream",
     detail:
@@ -78,7 +76,6 @@ const capabilities = [
     name: "Auto-reporting",
     title: "Every entry.\nAlready accounted for.",
     body: "Daily CSV logs with name, ID, date, and time. Email the report with one click.",
-    tone: "bg-lemon",
     specLabel: "Output",
     specValue: "Date-stamped CSV + SMTP dispatch",
     detail:
@@ -89,7 +86,6 @@ const capabilities = [
     name: "Local & secure",
     title: "On your machine.\nIn your control.",
     body: "The core engine runs locally. No cloud connection required for recognition.",
-    tone: "bg-sky",
     specLabel: "Privacy",
     specValue: "100% offline biometric inference",
     detail:
@@ -116,7 +112,7 @@ export function CapabilitiesGrid() {
       </div>
 
       <div className="max-w-[1240px] mx-auto px-6 md:px-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {capabilities.map(({ icon: Icon, name, title, body, tone, specLabel, specValue }, i) => {
+        {capabilities.map(({ icon: Icon, name, title, body, specLabel, specValue }, i) => {
           const isSelected = selected === name;
           return (
             <button
@@ -124,33 +120,51 @@ export function CapabilitiesGrid() {
               type="button"
               aria-expanded={isSelected}
               onClick={() => setSelected(isSelected ? null : name)}
-              className={`${tone} text-tile-foreground text-left rounded-2xl p-7 min-h-[350px] flex flex-col transition-[transform,box-shadow,outline] duration-250 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer group ${
-                isSelected ? "ring-2 ring-night shadow-xl -translate-y-1" : ""
+              className={`text-left rounded-2xl p-7 min-h-[340px] flex flex-col border transition-[transform,box-shadow,border-color,background-color] duration-250 hover:-translate-y-1 hover:shadow-lg cursor-pointer group ${
+                isSelected
+                  ? "bg-night text-night-foreground border-night shadow-xl -translate-y-1"
+                  : "bg-card text-foreground border-border hover:border-primary/40"
               }`}
             >
               <div className="w-full flex items-center justify-between">
                 <Icon
-                  className="size-8 transition-transform duration-300 group-hover:scale-110"
+                  className={`size-8 transition-transform duration-300 group-hover:scale-110 ${
+                    isSelected ? "text-sky-300" : "text-primary"
+                  }`}
                   strokeWidth={1.5}
                 />
-                <span className="eyebrow opacity-65 font-semibold">0{i + 1}</span>
+                <span className={`eyebrow font-semibold ${isSelected ? "text-white/60" : "text-muted-foreground"}`}>
+                  0{i + 1}
+                </span>
               </div>
 
               <h3 className="text-[26px] headline-tight whitespace-pre-line mt-10 mb-8 font-medium">
                 {title}
               </h3>
 
-              <div className="mt-auto w-full border-t border-tile-foreground/15 pt-4">
+              <div
+                className={`mt-auto w-full border-t pt-4 ${
+                  isSelected ? "border-white/15" : "border-border"
+                }`}
+              >
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <p className="eyebrow opacity-75 font-semibold">{name}</p>
+                  <p className={`eyebrow font-semibold ${isSelected ? "text-white/80" : "text-foreground/80"}`}>
+                    {name}
+                  </p>
                   <ChevronRight
-                    className={`size-4 opacity-60 transition-transform duration-200 ${
-                      isSelected ? "rotate-90 opacity-100" : "group-hover:translate-x-0.5"
+                    className={`size-4 transition-transform duration-200 ${
+                      isSelected ? "rotate-90 text-sky-300" : "opacity-60 group-hover:translate-x-0.5"
                     }`}
                   />
                 </div>
-                <p className="text-sm leading-relaxed">{body}</p>
-                <p className="mt-3 pt-2.5 border-t border-tile-foreground/10 text-[11px] font-mono opacity-75">
+                <p className={`text-sm leading-relaxed ${isSelected ? "text-white/75" : "text-muted-foreground"}`}>
+                  {body}
+                </p>
+                <p
+                  className={`mt-3 pt-2.5 border-t text-xs sm:text-[13px] font-medium ${
+                    isSelected ? "border-white/10 text-white/70" : "border-border/70 text-muted-foreground"
+                  }`}
+                >
                   {specLabel}: {specValue}
                 </p>
               </div>
@@ -163,15 +177,14 @@ export function CapabilitiesGrid() {
       <div className="max-w-[1240px] mx-auto px-6 md:px-10 mt-6">
         {activeCap ? (
           <div
+            key={activeCap.name}
             role="region"
             aria-label="Selected capability specifications"
             aria-live="polite"
-            className="rounded-2xl border bg-card px-6 py-5 flex flex-wrap items-center justify-between gap-4 shadow-xs"
+            className="panel-reveal rounded-2xl border bg-card px-6 py-5 flex flex-wrap items-center justify-between gap-4 shadow-xs"
           >
             <div className="flex items-start gap-4 max-w-2xl">
-              <span
-                className={`${activeCap.tone} size-10 rounded-xl flex items-center justify-center shrink-0 text-tile-foreground`}
-              >
+              <span className="bg-secondary text-primary size-10 rounded-xl flex items-center justify-center shrink-0">
                 <activeCap.icon className="size-5" strokeWidth={1.7} />
               </span>
               <div>
@@ -185,13 +198,13 @@ export function CapabilitiesGrid() {
             </div>
             <a
               href="#technology"
-              className="tactile-btn text-xs font-mono uppercase tracking-wider text-primary hover:underline inline-flex items-center gap-1"
+              className="tactile-btn text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1"
             >
-              Inspect implementation <ChevronRight className="size-3.5" />
+              Inspect implementation <ChevronRight className="size-4" />
             </a>
           </div>
         ) : (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground py-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground py-2">
             <Sparkles className="size-4 text-primary" />
             <span>
               Next on the horizon: liveness detection, cloud sync, and advanced analytics.
@@ -247,21 +260,20 @@ export function DemoPreview() {
             {showOverlay && (
               <>
                 <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-lime to-transparent shadow-[0_0_12px_var(--lime)]" />
+                  <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-sky-400/90 to-transparent shadow-[0_0_12px_rgba(56,189,248,0.65)]" />
                 </div>
-                <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[11px] text-white font-mono">
-                  <span className="size-2 bg-lime rounded-full" />
-                  <span>Haar Cascade · LBPH Active</span>
+                <div className="absolute top-4 left-4 inline-flex items-center px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-white font-medium">
+                  Haar Cascade · LBPH Active
                 </div>
-                <div className="hidden sm:block absolute bottom-4 right-4 rounded-xl bg-black/75 backdrop-blur-md border border-lime/40 px-3.5 py-2 text-[11px] font-mono text-white pointer-events-none">
-                  <p className="text-lime">MATCH · ID #104</p>
-                  <p className="text-white/75 mt-0.5">LBPH dist: 38.4 &lt; threshold</p>
+                <div className="hidden sm:block absolute bottom-4 right-4 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 px-4 py-2.5 text-xs sm:text-sm text-white pointer-events-none">
+                  <p className="font-semibold text-sky-200">Match · ID #104</p>
+                  <p className="text-white/75 mt-0.5 font-mono text-xs">LBPH dist: 38.4 &lt; threshold</p>
                 </div>
               </>
             )}
           </div>
-          <span className="block text-xs text-muted-foreground mt-3 font-mono">
-            System Walkthrough / Desktop application (Tkinter + OpenCV)
+          <span className="block text-sm text-muted-foreground mt-3 font-medium">
+            System Walkthrough · Desktop application (Tkinter + OpenCV)
           </span>
         </div>
       </div>
@@ -388,8 +400,12 @@ export function TechExplorer() {
           </div>
 
           {techDetail && (
-            <div className="mt-4 rounded-xl border bg-card px-4 py-3.5 text-sm shadow-2xs" aria-live="polite">
-              <span className="font-mono text-xs uppercase text-primary font-semibold">
+            <div
+              key={selectedTech}
+              className="panel-reveal mt-4 rounded-xl border bg-card px-4 py-3.5 text-sm shadow-2xs"
+              aria-live="polite"
+            >
+              <span className="font-display text-xs sm:text-[13px] tracking-wide uppercase text-primary font-semibold">
                 {selectedTech} · {techDetail.role}
               </span>
               <p className="text-muted-foreground mt-1 leading-relaxed">{techDetail.usage}</p>
@@ -432,7 +448,7 @@ export function TechExplorer() {
                     <span className="block text-sm text-muted-foreground">{detail}</span>
                   </div>
                   <span
-                    className={`font-mono text-xs ${isCurrent ? "text-primary font-semibold" : "text-muted-foreground"}`}
+                    className={`font-display text-sm ${isCurrent ? "text-primary font-semibold" : "text-muted-foreground"}`}
                   >
                     0{i + 1}
                   </span>
@@ -490,9 +506,11 @@ export function TechExplorer() {
           </div>
 
           <div
+            key={codeTab}
             role="tabpanel"
             id={`tech-panel-${codeTab}`}
             aria-labelledby={`tech-tab-${codeTab}`}
+            className="panel-reveal"
           >
             {codeTab === "python" && (
               <CopyCode code={recognitionCode} title="Recognition / illustrative Python" />
@@ -503,7 +521,7 @@ export function TechExplorer() {
             {codeTab === "cli" && <CopyCode code={installCode} title="Quick start / terminal" />}
           </div>
 
-          <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+          <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
             LBPH returns a distance score, not an accuracy percentage. Thresholds should be
             calibrated for the deployment.
           </p>
@@ -611,7 +629,8 @@ export function UseCaseSelector() {
         </div>
 
         <div
-          className="mt-6 rounded-2xl border bg-secondary/45 p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6"
+          key={scenario.title}
+          className="panel-reveal mt-6 rounded-2xl border bg-secondary/45 p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6"
           aria-live="polite"
         >
           <div>
@@ -680,15 +699,15 @@ export function FaqAccordion() {
             type="button"
             aria-expanded={allOpen}
             onClick={toggleAll}
-            className="tactile-btn rounded-lg border bg-card hover:bg-secondary px-4 py-2 text-xs font-mono uppercase tracking-wider cursor-pointer"
+            className="tactile-btn rounded-lg border bg-card hover:bg-secondary px-4 py-2 text-sm font-medium cursor-pointer"
           >
             {allOpen ? "Collapse all" : "Expand all"}
           </button>
           <a
-            href="mailto:faceattentai@gmail.com"
+            href={`mailto:${developerEmail}`}
             className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
           >
-            Still have questions?
+            Still have questions? ({developerEmail})
           </a>
         </div>
       </div>

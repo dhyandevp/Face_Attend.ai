@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Brand } from "@/components/site/site-controls";
+import { developerBioUrl, developerEmail, developerWebsite } from "@/lib/product";
 
 export const metadata: Metadata = {
   title: "Privacy — FaceAttend.AI",
@@ -47,8 +48,26 @@ export default function Privacy() {
         <h2 className="text-2xl font-medium mt-8 mb-4">Contact</h2>
         <p>
           For questions or requests concerning your inquiry, email{" "}
-          <a className="underline text-primary" href="mailto:faceattentai@gmail.com">
-            faceattentai@gmail.com
+          <a className="underline text-primary" href={`mailto:${developerEmail}`}>
+            {developerEmail}
+          </a>{" "}
+          or visit{" "}
+          <a
+            className="underline text-primary"
+            href={developerWebsite}
+            target="_blank"
+            rel="noreferrer"
+          >
+            dhyandev.sbs
+          </a>{" "}
+          /{" "}
+          <a
+            className="underline text-primary"
+            href={developerBioUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            link.dhyandev.sbs
           </a>
           . Retention periods and a complete rights process must be finalized by the owner before
           launch.

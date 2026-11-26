@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "@/styles.css";
 
-const hankenGrotesk = Hanken_Grotesk({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-hanken",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -31,7 +38,7 @@ export const metadata: Metadata = {
     "OpenCV",
     "Python",
   ],
-  authors: [{ name: "Dhyandev" }],
+  authors: [{ name: "Dhyandev", url: "https://dhyandev.sbs" }],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -69,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hankenGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <script
@@ -92,12 +99,17 @@ export default function RootLayout({
               author: {
                 "@type": "Person",
                 name: "Dhyandev",
+                url: "https://dhyandev.sbs",
+                sameAs: [
+                  "https://link.dhyandev.sbs",
+                  "https://github.com/dhyandevp",
+                ],
               },
             }),
           }}
         />
       </head>
-      <body className="min-h-dvh bg-background text-foreground antialiased selection:bg-lime selection:text-tile-foreground">
+      <body className="min-h-dvh bg-background text-foreground antialiased selection:bg-primary/15 selection:text-foreground">
         {children}
       </body>
     </html>

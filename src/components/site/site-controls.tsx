@@ -15,17 +15,17 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { contactSchema, repoUrl } from "@/lib/product";
+import { contactSchema, developerEmail, repoUrl } from "@/lib/product";
 
 export const navItems = ["Overview", "Features", "Workflow", "Technology", "Use Cases", "Pricing"];
 
 export function Brand({ large = false }: { large?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 font-semibold tracking-tight ${large ? "text-3xl" : "text-lg sm:text-xl"}`}
+      className={`inline-flex items-center gap-2 font-bold tracking-tight ${large ? "text-3xl" : "text-lg sm:text-xl"}`}
     >
       <ScanFace className={large ? "size-9" : "size-6 sm:size-7"} strokeWidth={1.7} />
-      FaceAttend<span className="font-normal opacity-60 -ml-2">.AI</span>
+      FaceAttend<span className="font-semibold opacity-60 -ml-2">.AI</span>
     </span>
   );
 }
@@ -68,9 +68,9 @@ export function Navigation() {
               <a
                 key={item}
                 href={`#${id}`}
-                className={`px-3.5 py-1.5 rounded-full text-[13px] transition-colors ${
+                className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                   isCurrent
-                    ? "bg-night text-night-foreground font-medium"
+                    ? "bg-night text-night-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/80"
                 }`}
                 aria-current={isCurrent ? "location" : undefined}
@@ -82,7 +82,7 @@ export function Navigation() {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
-          <Button asChild variant="night" className="hidden lg:inline-flex rounded-full px-5 h-9">
+          <Button asChild variant="night" className="hidden lg:inline-flex rounded-full px-5 h-9 font-bold">
             <a href={repoUrl} target="_blank" rel="noreferrer">
               <Github className="size-4" /> GitHub <ArrowUpRight className="size-3.5" />
             </a>
@@ -114,7 +114,7 @@ export function Navigation() {
                 key={item}
                 onClick={() => setOpen(false)}
                 href={`#${id}`}
-                className="py-2.5 px-3 rounded-lg text-sm font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors"
+                className="py-2.5 px-3 rounded-lg text-sm font-bold text-foreground hover:bg-secondary hover:text-primary transition-colors"
               >
                 {item}
               </a>
@@ -124,7 +124,7 @@ export function Navigation() {
             href={repoUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-1 py-2.5 px-3 rounded-lg text-sm font-medium bg-night text-night-foreground inline-flex items-center justify-between"
+            className="mt-1 py-2.5 px-3 rounded-lg text-sm font-bold bg-night text-night-foreground inline-flex items-center justify-between"
           >
             <span>GitHub Repository</span>
             <ArrowUpRight className="size-4" />
@@ -197,15 +197,15 @@ export function HeroWalkthroughCard() {
             />
             <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors" />
             <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-lime shadow-[0_0_8px_var(--lime)]" />
+              <div className="absolute inset-x-0 top-0 h-0.5 bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.65)]" />
             </div>
           </div>
           <div>
-            <p className="text-[14px] font-medium text-white leading-tight">
+            <p className="text-[15px] font-medium text-white leading-tight">
               System Walkthrough
             </p>
-            <p className="text-xs text-white/75 mt-1">Live Facial Recognition</p>
-            <span className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-[11px] text-white font-mono">
+            <p className="text-xs sm:text-[13px] text-white/75 mt-1">Live Facial Recognition</p>
+            <span className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-xs text-white font-mono">
               <Play className="size-2.5 fill-white" /> 0:21
             </span>
           </div>
@@ -438,7 +438,7 @@ export function ContactForm() {
         } catch {
           setSuccess(false);
           setStatus(
-            "We could not save your message. Please try again or email faceattentai@gmail.com.",
+            `We could not save your message. Please try again or email ${developerEmail}.`,
           );
         } finally {
           setPending(false);
@@ -545,7 +545,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
-        <span className="text-xs text-muted-foreground">
+        <span className="text-sm text-muted-foreground">
           Your details are used solely to respond to your inquiry.
         </span>
         <Button size="xl" type="submit" disabled={pending} className="tactile-btn rounded-xl">
@@ -560,7 +560,7 @@ export function ContactForm() {
           aria-live="polite"
           className={
             success
-              ? "text-sm font-medium text-foreground bg-lime/25 border border-lime/50 rounded-xl px-4 py-3"
+              ? "text-sm font-medium text-foreground bg-secondary border border-primary/30 rounded-xl px-4 py-3"
               : "text-sm font-medium text-destructive bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3"
           }
         >

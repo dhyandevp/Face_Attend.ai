@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-hanken), "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-jakarta), "Plus Jakarta Sans", var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -28,9 +29,6 @@
   --color-ring: var(--ring);
   --color-night: var(--night);
   --color-night-foreground: var(--night-foreground);
-  --color-lime: var(--lime);
-  --color-pink: var(--pink);
-  --color-lemon: var(--lemon);
   --color-sky: var(--sky);
   --color-tile-foreground: var(--tile-foreground);
 }
@@ -59,12 +57,9 @@
   --ring: #2563eb;
   --night: #080d28;
   --night-foreground: #f8fafc;
-  --lime: #a3e635;
-  --pink: #f472b6;
-  --lemon: #fde047;
   --sky: #38bdf8;
   --tile-foreground: #0f172a;
-  --success: #16a34a;
+  --success: #2563eb;
   --shadow-soft: 0 24px 60px -32px rgba(8, 13, 40, 0.25);
 }
 
@@ -95,7 +90,9 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  .font-display {
+    font-family: var(--font-display);
     text-wrap: balance;
   }
 
@@ -104,8 +101,8 @@
   }
 
   ::selection {
-    background: var(--lime);
-    color: var(--tile-foreground);
+    background: rgba(37, 99, 235, 0.16);
+    color: var(--foreground);
   }
 
   :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
@@ -120,19 +117,20 @@
 }
 
 .display-tight {
-  letter-spacing: -0.035em;
-  line-height: 0.92;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
 }
 
 .headline-tight {
-  letter-spacing: -0.025em;
-  line-height: 1.06;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -152,25 +150,45 @@
 .hero-cosmic {
   background:
     radial-gradient(
-      ellipse 88% 72% at 16% 68%,
-      rgba(29, 98, 255, 0.92) 0%,
-      rgba(18, 60, 196, 0.65) 42%,
+      ellipse 88% 68% at 16% 52%,
+      rgba(29, 98, 255, 0.85) 0%,
+      rgba(18, 60, 196, 0.52) 42%,
       transparent 76%
     ),
     radial-gradient(
-      ellipse 68% 58% at 86% 74%,
-      rgba(37, 99, 235, 0.55) 0%,
+      ellipse 68% 54% at 86% 58%,
+      rgba(37, 99, 235, 0.45) 0%,
       transparent 64%
     ),
     linear-gradient(
       180deg,
       #040716 0%,
-      #070c26 32%,
-      #0e246a 64%,
-      #3b82f6 86%,
-      #e0ecff 96%,
+      #070c26 28%,
+      #0e246a 54%,
+      #3b82f6 74%,
+      #bfdbfe 88%,
+      #f1f6ff 95%,
       var(--background) 100%
     );
+}
+
+.hero-cosmic::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(190px, 32vh, 300px);
+  background: linear-gradient(
+    to bottom,
+    rgba(250, 250, 250, 0) 0%,
+    rgba(250, 250, 250, 0.14) 24%,
+    rgba(250, 250, 250, 0.46) 52%,
+    rgba(250, 250, 250, 0.84) 78%,
+    var(--background) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
 }
 
 .hero-cosmic-glow {
@@ -210,13 +228,13 @@
 .orbital-card {
   background:
     radial-gradient(
-      circle at 22% 50%,
-      rgba(37, 99, 235, 0.18) 0%,
+      circle at 20% 50%,
+      rgba(37, 99, 235, 0.22) 0%,
       transparent 48%
     ),
     radial-gradient(
       ellipse 60% 80% at 85% 20%,
-      rgba(30, 58, 138, 0.22) 0%,
+      rgba(30, 58, 138, 0.24) 0%,
       transparent 65%
     ),
     #070b24;
@@ -224,26 +242,36 @@
 
 .orbital-orb {
   background: radial-gradient(
-    circle at 65% 42%,
-    #93c5fd 0%,
-    #3b82f6 34%,
-    #1d4ed8 60%,
-    #0b1442 84%,
+    circle at 66% 38%,
+    #bae6fd 0%,
+    #60a5fa 22%,
+    #2563eb 52%,
+    #0f1c5c 80%,
     #050920 100%
   );
   box-shadow:
-    0 0 28px rgba(59, 130, 246, 0.55),
-    inset -6px -4px 12px rgba(2, 6, 23, 0.75);
+    0 0 34px rgba(59, 130, 246, 0.65),
+    0 0 64px rgba(37, 99, 235, 0.25),
+    inset -6px -4px 12px rgba(2, 6, 23, 0.78);
+}
+
+.orbital-wheel-item {
+  transition:
+    transform 580ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 320ms ease,
+    text-shadow 420ms ease;
+  will-change: transform, opacity;
 }
 
 .orbital-wheel-mask {
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.45) 14%,
+    rgba(0, 0, 0, 0.5) 14%,
     black 30%,
     black 70%,
-    rgba(0, 0, 0, 0.45) 86%,
+    rgba(0, 0, 0, 0.5) 86%,
     transparent 100%
   );
 }
@@ -431,6 +459,68 @@
   }
 }
 
+@keyframes stage-content-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes panel-reveal {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 30px rgba(59, 130, 246, 0.58),
+      0 0 58px rgba(37, 99, 235, 0.22),
+      inset -6px -4px 12px rgba(2, 6, 23, 0.78);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 40px rgba(96, 165, 250, 0.78),
+      0 0 76px rgba(37, 99, 235, 0.34),
+      inset -6px -4px 12px rgba(2, 6, 23, 0.78);
+  }
+}
+
+@keyframes orb-ripple {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.95);
+    opacity: 0;
+  }
+}
+
+@keyframes orbital-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .animate-float {
     animation: float 4.5s ease-in-out infinite;
@@ -441,7 +531,27 @@
   }
 
   .rise-in {
-    animation: rise-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: rise-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .stage-content-in {
+    animation: stage-content-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .panel-reveal {
+    animation: panel-reveal 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .orbital-orb-breathe {
+    animation: orb-breathe 4.2s ease-in-out infinite;
+  }
+
+  .orbital-orb-ripple {
+    animation: orb-ripple 750ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .orbital-ring-spin {
+    animation: orbital-ring-spin 56s linear infinite;
   }
 
   .star-twinkle {

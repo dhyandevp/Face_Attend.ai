@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Brand } from "@/components/site/site-controls";
+import { developerBioUrl, developerEmail, developerWebsite } from "@/lib/product";
 
 export const metadata: Metadata = {
   title: "Terms — FaceAttend.AI",
@@ -49,10 +50,28 @@ export default function Terms() {
         </p>
         <p className="mt-8">
           Questions:{" "}
-          <a className="underline text-primary" href="mailto:faceattentai@gmail.com">
-            faceattentai@gmail.com
+          <a className="underline text-primary" href={`mailto:${developerEmail}`}>
+            {developerEmail}
+          </a>{" "}
+          (Website:{" "}
+          <a
+            className="underline text-primary"
+            href={developerWebsite}
+            target="_blank"
+            rel="noreferrer"
+          >
+            dhyandev.sbs
           </a>
-          .
+          , Links:{" "}
+          <a
+            className="underline text-primary"
+            href={developerBioUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            link.dhyandev.sbs
+          </a>
+          ).
         </p>
       </div>
       <Link href="/" className="inline-block mt-12 text-primary hover:underline">

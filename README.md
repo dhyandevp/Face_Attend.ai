@@ -58,6 +58,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `pnpm db:push`: Push schema changes to database
 - `pnpm migrate:data`: Migrate historical submissions from legacy export
 
-## License
+## License & Contact
 
-MIT License. Developed by Dhyandev.
+MIT License. Developed by [Dhyandev](https://dhyandev.sbs) ([Bio Links](https://link.dhyandev.sbs)).
+Contact: [dhyandevp@proton.me](mailto:dhyandevp@proton.me)

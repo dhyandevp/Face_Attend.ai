@@ -1,6 +1,19 @@
 import { describe, it, expect } from "vitest";
-import { editions, contactSchema, benchmarks, plannedFeatures } from "@/lib/product";
+import {
+  editions,
+  contactSchema,
+  benchmarks,
+  plannedFeatures,
+  developerEmail,
+  developerWebsite,
+  developerBioUrl,
+} from "@/lib/product";
 describe("Product rules", () => {
+  it("exports developer contact and bio links", () => {
+    expect(developerEmail).toBe("dhyandevp@proton.me");
+    expect(developerWebsite).toBe("https://dhyandev.sbs");
+    expect(developerBioUrl).toBe("https://link.dhyandev.sbs");
+  });
   it("offers open source at zero forever", () => {
     expect(editions[0]?.price).toBe(0);
     expect(editions[0]?.period).toBe("forever");

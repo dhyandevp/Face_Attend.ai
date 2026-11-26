@@ -2,11 +2,8 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowUpRight,
-  Camera,
   Check,
-  Code2,
   Github,
-  ShieldCheck,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +12,6 @@ import {
   ContactForm,
   CopyCode,
   Demo,
-  HeroWalkthroughCard,
   Navigation,
 } from "@/components/site/site-controls";
 import {
@@ -27,7 +23,15 @@ import {
   UseCaseSelector,
 } from "@/components/site/interactive-sections";
 import { WorkflowShowcase } from "@/components/site/workflow-showcase";
-import { editions, installCode, repoUrl } from "@/lib/product";
+import {
+  editions,
+  installCode,
+  repoUrl,
+  developerEmail,
+  developerWebsite,
+  developerBioUrl,
+  developerGithub,
+} from "@/lib/product";
 
 export default function Home() {
   return (
@@ -41,70 +45,41 @@ export default function Home() {
       <Navigation />
 
       <main id="top">
-        {/* Hero Section: Spacious Cosmic Canvas & Interactive Walkthrough Card */}
+        {/* Hero Section */}
         <HeroCanvas>
-          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-36 sm:pt-44 lg:pt-48 pb-24 sm:pb-28 rise-in z-10 flex-1 flex flex-col justify-between">
+          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-36 sm:pt-44 lg:pt-48 pb-24 sm:pb-28 z-10 flex-1 flex flex-col justify-between">
             <div className="max-w-[820px]">
-              <div className="inline-flex items-center gap-3 text-xs mb-8 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-                <span className="relative flex size-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-lime" />
-                </span>
-                <span className="eyebrow tracking-wider text-night-foreground">
-                  v2.0 Enterprise Release
-                </span>
-              </div>
-
-              <h1 className="text-[48px] sm:text-[84px] lg:text-[108px] display-tight font-medium text-white drop-shadow-sm">
-                FaceAttend<span className="text-lime">.AI</span>
+              <h1 className="rise-in text-[48px] sm:text-[84px] lg:text-[108px] display-tight font-semibold text-white drop-shadow-sm">
+                FaceAttend<span className="text-sky-300">.AI</span>
               </h1>
-              <p className="text-[28px] sm:text-[44px] lg:text-[54px] headline-tight max-w-[680px] mt-6 font-normal text-white/95">
+              <p
+                className="rise-in font-display text-[28px] sm:text-[44px] lg:text-[54px] headline-tight max-w-[680px] mt-6 font-normal text-white/95"
+                style={{ animationDelay: "90ms" }}
+              >
                 Attendance automation.
                 <br />
                 Powered by intelligence.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:items-end mt-14 lg:mt-20">
-              <div>
-                <p className="max-w-[46ch] text-base sm:text-lg leading-relaxed text-white/85">
-                  Eliminate manual registers and proxy attendance. A contactless, real-time facial
-                  recognition system designed for the modern campus.
-                </p>
+            <div className="rise-in mt-14 lg:mt-20 max-w-[680px]" style={{ animationDelay: "180ms" }}>
+              <p className="max-w-[46ch] text-base sm:text-lg leading-relaxed text-white/85">
+                Eliminate manual registers and proxy attendance. A contactless, real-time facial
+                recognition system designed for the modern campus.
+              </p>
 
-                <div className="flex flex-wrap gap-4 mt-8 items-center">
-                  <Button
-                    variant="hero"
-                    size="xl"
-                    asChild
-                    className="tactile-btn rounded-xl shadow-lg shadow-primary/25"
-                  >
-                    <a href="#overview">
-                      Discover the Solution <ArrowUpRight className="size-4" />
-                    </a>
-                  </Button>
-                  <Demo compact />
-                </div>
-
-                <div className="flex flex-wrap gap-x-7 gap-y-3 mt-10 text-xs text-white/80">
-                  <span className="flex gap-2 items-center">
-                    <Code2 className="size-4 text-sky" aria-hidden="true" />
-                    Open source
-                  </span>
-                  <span className="flex gap-2 items-center">
-                    <ShieldCheck className="size-4 text-lime" aria-hidden="true" />
-                    Local-first
-                  </span>
-                  <span className="flex gap-2 items-center">
-                    <Camera className="size-4 text-sky" aria-hidden="true" />
-                    Contactless by design
-                  </span>
-                </div>
-              </div>
-
-              {/* Interactive Floating Video Preview Card */}
-              <div className="hidden lg:flex justify-end">
-                <HeroWalkthroughCard />
+              <div className="flex flex-wrap gap-4 mt-8 items-center">
+                <Button
+                  variant="hero"
+                  size="xl"
+                  asChild
+                  className="tactile-btn rounded-xl shadow-lg shadow-primary/25"
+                >
+                  <a href="#overview">
+                    Discover the Solution <ArrowUpRight className="size-4" />
+                  </a>
+                </Button>
+                <Demo compact />
               </div>
             </div>
           </div>
@@ -141,11 +116,11 @@ export default function Home() {
                 attendance, and share daily reports—all from your own machine.
               </p>
               <div className="mt-8 flex flex-wrap gap-2.5">
-                <span className="eyebrow bg-lime text-tile-foreground px-3 py-1.5 rounded-md font-semibold">
-                  ● Automated. Secure. Contactless.
+                <span className="inline-flex items-center rounded-md border border-border bg-secondary/70 px-3.5 py-1.5 text-sm font-medium text-foreground/85">
+                  Automated · Secure · Contactless
                 </span>
-                <span className="eyebrow bg-lemon text-tile-foreground px-3 py-1.5 rounded-md font-semibold">
-                  ● Built with Python & OpenCV
+                <span className="inline-flex items-center rounded-md border border-border bg-secondary/70 px-3.5 py-1.5 text-sm font-medium text-foreground/85">
+                  Built with Python &amp; OpenCV
                 </span>
               </div>
             </div>
@@ -210,13 +185,15 @@ export default function Home() {
               <article
                 key={edition.name}
                 className={`rounded-2xl p-8 sm:p-9 border flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-                  i === 1 ? "bg-lime text-tile-foreground border-lime shadow-lg" : "bg-card"
+                  i === 1
+                    ? "bg-night text-night-foreground border-white/10 shadow-xl"
+                    : "bg-card"
                 }`}
               >
                 <div className="flex justify-between items-center gap-2">
                   <p className="eyebrow font-bold">{edition.name}</p>
                   {i === 1 && (
-                    <span className="text-xs border border-tile-foreground/25 rounded-full px-3 py-1 font-medium">
+                    <span className="text-xs sm:text-sm border border-white/25 rounded-full px-3 py-1 font-medium text-white/90">
                       Most Popular
                     </span>
                   )}
@@ -231,7 +208,10 @@ export default function Home() {
                 <ul className="grid gap-4 mb-9 text-sm">
                   {edition.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2.5">
-                      <Check className="size-4 shrink-0 text-primary mt-0.5" aria-hidden="true" />
+                      <Check
+                        className={`size-4 shrink-0 mt-0.5 ${i === 1 ? "text-sky-400" : "text-primary"}`}
+                        aria-hidden="true"
+                      />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -239,7 +219,7 @@ export default function Home() {
                     <li
                       key={feature}
                       className={`flex items-start gap-2.5 ${
-                        i === 1 ? "text-tile-foreground/80" : "text-muted-foreground"
+                        i === 1 ? "text-white/55" : "text-muted-foreground"
                       }`}
                     >
                       <X className="size-4 shrink-0 mt-0.5" aria-hidden="true" />
@@ -256,10 +236,10 @@ export default function Home() {
                     </Button>
                   ) : i === 1 ? (
                     <>
-                      <Button disabled variant="night" size="xl" className="w-full rounded-xl">
+                      <Button disabled variant="hero" size="xl" className="w-full rounded-xl">
                         Buy Pro License <ArrowUpRight />
                       </Button>
-                      <p className="text-xs mt-3 text-center opacity-75">
+                      <p className="text-sm mt-3 text-center text-white/70">
                         Planned edition · checkout not available
                       </p>
                     </>
@@ -270,7 +250,7 @@ export default function Home() {
                           Contact Sales <ArrowUpRight />
                         </a>
                       </Button>
-                      <p className="text-xs mt-3 text-center text-muted-foreground">
+                      <p className="text-sm mt-3 text-center text-muted-foreground">
                         Planned services · discuss your requirements
                       </p>
                     </>
@@ -297,11 +277,23 @@ export default function Home() {
               for a Computer Science Evaluation Project through three months of research into
               biometric security and edge computing.
             </p>
-            <Button variant="link" asChild className="px-0 mt-6 text-primary">
-              <a href="https://github.com/dhyandevp" target="_blank" rel="noreferrer">
-                View GitHub Profile <ArrowUpRight className="size-4" />
-              </a>
-            </Button>
+            <div className="flex flex-wrap items-center gap-3 mt-6">
+              <Button variant="outline" asChild className="rounded-full">
+                <a href={developerWebsite} target="_blank" rel="noreferrer">
+                  Developer Portfolio <ArrowUpRight className="size-4" />
+                </a>
+              </Button>
+              <Button variant="outline" asChild className="rounded-full">
+                <a href={developerBioUrl} target="_blank" rel="noreferrer">
+                  All Links <ArrowUpRight className="size-4" />
+                </a>
+              </Button>
+              <Button variant="ghost" asChild className="rounded-full">
+                <a href={developerGithub} target="_blank" rel="noreferrer">
+                  <Github className="size-4" /> GitHub
+                </a>
+              </Button>
+            </div>
           </div>
           <div>
             <p className="eyebrow text-muted-foreground mb-6">What's next / Roadmap</p>
@@ -331,13 +323,38 @@ export default function Home() {
               <p className="mt-6 text-lg text-muted-foreground max-w-[38ch] leading-relaxed">
                 Have a custom requirement? Send us a message and we will respond directly.
               </p>
-              <a
-                href="mailto:faceattentai@gmail.com"
-                className="inline-block mt-8 underline underline-offset-4 text-primary font-medium"
-              >
-                faceattentai@gmail.com
-              </a>
-              <p className="text-sm mt-3 text-muted-foreground">Kannur, Kerala, India</p>
+              <div className="mt-8 space-y-2.5">
+                <div>
+                  <a
+                    href={`mailto:${developerEmail}`}
+                    className="inline-block text-xl font-medium underline underline-offset-4 text-primary hover:opacity-85 transition-opacity"
+                  >
+                    {developerEmail}
+                  </a>
+                </div>
+                <div className="flex flex-wrap items-center gap-4 text-sm pt-1">
+                  <a
+                    href={developerWebsite}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-foreground/90 font-medium hover:text-primary transition-colors"
+                  >
+                    <span>dhyandev.sbs</span>
+                    <ArrowUpRight className="size-3.5" />
+                  </a>
+                  <span className="text-muted-foreground/40">•</span>
+                  <a
+                    href={developerBioUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-foreground/90 font-medium hover:text-primary transition-colors"
+                  >
+                    <span>link.dhyandev.sbs</span>
+                    <ArrowUpRight className="size-3.5" />
+                  </a>
+                </div>
+              </div>
+              <p className="text-sm mt-4 text-muted-foreground">Kannur, Kerala, India</p>
             </div>
             <ContactForm />
           </div>
@@ -353,15 +370,34 @@ export default function Home() {
               <p className="text-night-foreground/75 mt-5 max-w-sm text-lg leading-relaxed">
                 Enterprise-grade biometric attendance solutions. Built locally. Thinking ahead.
               </p>
-              <a
-                href={repoUrl}
-                aria-label="FaceAttend.AI on GitHub"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center size-10 rounded-full bg-white/10 hover:bg-white/20 mt-6 hover:text-white transition-colors"
-              >
-                <Github className="size-5" />
-              </a>
+              <div className="flex flex-wrap items-center gap-3 mt-6">
+                <a
+                  href={repoUrl}
+                  aria-label="FaceAttend.AI on GitHub"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center size-10 rounded-full bg-white/10 hover:bg-white/20 hover:text-white transition-colors"
+                  title="GitHub Repository"
+                >
+                  <Github className="size-5" />
+                </a>
+                <a
+                  href={developerWebsite}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center px-3.5 h-10 rounded-full bg-white/10 hover:bg-white/20 hover:text-white text-xs font-semibold tracking-wide transition-colors"
+                >
+                  dhyandev.sbs <ArrowUpRight className="size-3.5 ml-1" />
+                </a>
+                <a
+                  href={developerBioUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center px-3.5 h-10 rounded-full bg-white/10 hover:bg-white/20 hover:text-white text-xs font-semibold tracking-wide transition-colors"
+                >
+                  link.dhyandev.sbs <ArrowUpRight className="size-3.5 ml-1" />
+                </a>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-8">
               <nav aria-label="Footer product links" className="grid gap-3 text-lg sm:text-xl">
@@ -378,11 +414,33 @@ export default function Home() {
               <div>
                 <p className="eyebrow text-night-foreground/75 mb-5">Get in touch</p>
                 <a
-                  className="text-sm underline underline-offset-4 break-all hover:text-white"
-                  href="mailto:faceattentai@gmail.com"
+                  className="text-sm font-medium underline underline-offset-4 break-all hover:text-white"
+                  href={`mailto:${developerEmail}`}
                 >
-                  faceattentai@gmail.com
+                  {developerEmail}
                 </a>
+                <div className="mt-3 space-y-1.5 text-sm text-night-foreground/80">
+                  <div>
+                    <a
+                      href={developerWebsite}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 hover:text-white transition-colors"
+                    >
+                      dhyandev.sbs <ArrowUpRight className="size-3.5" />
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href={developerBioUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 hover:text-white transition-colors"
+                    >
+                      link.dhyandev.sbs <ArrowUpRight className="size-3.5" />
+                    </a>
+                  </div>
+                </div>
                 <p className="text-sm mt-4 text-night-foreground/70">
                   Kannur, Kerala
                   <br />
@@ -397,7 +455,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="max-w-[1160px] mx-auto border-t border-night-foreground/15 mt-14 pt-6 flex flex-wrap justify-between gap-5 text-xs text-night-foreground/80">
+          <div className="max-w-[1160px] mx-auto border-t border-night-foreground/15 mt-14 pt-6 flex flex-wrap justify-between gap-5 text-sm text-night-foreground/80">
             <span>© 2026 Dhyandev. Open Source MIT License.</span>
             <div className="flex gap-6">
               <Link href="/privacy" className="underline underline-offset-4 hover:text-white">
