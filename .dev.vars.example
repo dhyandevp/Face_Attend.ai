@@ -1,4 +1,4 @@
 # Local development variables for Wrangler
 NEXTJS_ENV=development
-NEXT_PUBLIC_SITE_URL=https://faceattend-ai.dhyandev.sbs
+NEXT_PUBLIC_SITE_URL=https://faceattendai.dhyandev.sbs
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/faceattend

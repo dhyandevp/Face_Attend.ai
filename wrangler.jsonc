@@ -12,6 +12,7 @@
 		"binding": "ASSETS"
 	},
 	"routes": [
+		{ "pattern": "faceattendai.dhyandev.sbs", "custom_domain": true },
 		{ "pattern": "faceattend-ai.dhyandev.sbs", "custom_domain": true }
 	],
 	"workers_dev": true,
@@ -27,6 +28,6 @@
 		}
 	],
 	"vars": {
-		"NEXT_PUBLIC_SITE_URL": "https://faceattend-ai.dhyandev.sbs"
+		"NEXT_PUBLIC_SITE_URL": "https://faceattendai.dhyandev.sbs"
 	}
 }

@@ -66,7 +66,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 This project is deployed to **Cloudflare Workers** using `@opennextjs/cloudflare`.
 
 - **Project Slug:** `faceattend-ai`
-- **Live URL:** [https://faceattend-ai.dhyandev.sbs](https://faceattend-ai.dhyandev.sbs)
+- **Live URL:** [https://faceattendai.dhyandev.sbs](https://faceattendai.dhyandev.sbs) (alias: [https://faceattend-ai.dhyandev.sbs](https://faceattend-ai.dhyandev.sbs))
 
 ### Deployment Commands
 
@@ -83,7 +83,7 @@ pnpm deploy
 
 ### Environment Variables & Secrets
 
-- `NEXT_PUBLIC_SITE_URL`: Set to `https://faceattend-ai.dhyandev.sbs` in `wrangler.jsonc` (`vars`).
+- `NEXT_PUBLIC_SITE_URL`: Set to `https://faceattendai.dhyandev.sbs` in `wrangler.jsonc` (`vars`).
 - Local variables can be configured in `.dev.vars` (see `.dev.vars.example`).
 - Secrets (if needed in the future) can be added via:
   ```bash
