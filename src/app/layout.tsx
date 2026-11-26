@@ -100,10 +100,7 @@ export default function RootLayout({
                 "@type": "Person",
                 name: "Dhyandev",
                 url: "https://dhyandev.sbs",
-                sameAs: [
-                  "https://link.dhyandev.sbs",
-                  "https://github.com/dhyandevp",
-                ],
+                sameAs: ["https://link.dhyandev.sbs", "https://github.com/dhyandevp"],
               },
             }),
           }}

@@ -74,10 +74,6 @@ export function HeroStarfield() {
             width: `${star.size}px`,
             height: `${star.size}px`,
             opacity: star.opacity,
-            boxShadow:
-              star.size > 2
-                ? "0 0 6px rgba(255, 255, 255, 0.9), 0 0 12px rgba(147, 197, 253, 0.6)"
-                : "none",
             animationDuration: star.duration,
             animationDelay: star.delay,
           }}
@@ -101,7 +97,7 @@ export function HeroStarfield() {
             aria-hidden="true"
             viewBox="0 0 24 24"
             fill="none"
-            className="w-full h-full text-white/90 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+            className="w-full h-full text-white/70"
           >
             <path d="M12 0L14 9L23 12L14 15L12 24L10 15L1 12L10 9L12 0Z" fill="currentColor" />
           </svg>

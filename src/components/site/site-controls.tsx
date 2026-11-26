@@ -22,10 +22,14 @@ export const navItems = ["Overview", "Features", "Workflow", "Technology", "Use 
 export function Brand({ large = false }: { large?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 font-bold tracking-tight ${large ? "text-3xl" : "text-lg sm:text-xl"}`}
+      className={`inline-flex items-center gap-2.5 font-bold tracking-tight leading-none ${
+        large ? "text-3xl" : "text-lg sm:text-xl"
+      }`}
     >
-      <ScanFace className={large ? "size-9" : "size-6 sm:size-7"} strokeWidth={1.7} />
-      FaceAttend<span className="font-semibold opacity-60 -ml-2">.AI</span>
+      <ScanFace className={large ? "size-9" : "size-6 sm:size-7"} strokeWidth={1.8} />
+      <span className="inline-flex items-baseline leading-none">
+        FaceAttend<span className="font-semibold opacity-60">.AI</span>
+      </span>
     </span>
   );
 }
@@ -56,7 +60,11 @@ export function Navigation() {
   return (
     <header className="fixed top-4 sm:top-6 left-0 right-0 z-40 px-4 md:px-10">
       <div className="mx-auto max-w-[1240px] rounded-full bg-background/85 backdrop-blur-xl px-5 sm:px-6 py-3 soft-shadow flex items-center justify-between gap-4 border border-border/70">
-        <a href="#top" aria-label="FaceAttend.AI home" className="min-w-0 shrink-0">
+        <a
+          href="#top"
+          aria-label="FaceAttend.AI home"
+          className="inline-flex items-center min-w-0 shrink-0"
+        >
           <Brand />
         </a>
 
@@ -82,7 +90,11 @@ export function Navigation() {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
-          <Button asChild variant="night" className="hidden lg:inline-flex rounded-full px-5 h-9 font-bold">
+          <Button
+            asChild
+            variant="night"
+            className="hidden lg:inline-flex rounded-full px-5 h-9 font-bold"
+          >
             <a href={repoUrl} target="_blank" rel="noreferrer">
               <Github className="size-4" /> GitHub <ArrowUpRight className="size-3.5" />
             </a>
@@ -154,7 +166,7 @@ export function Demo({ compact = false }: { compact?: boolean }) {
       >
         <Play className="size-4" fill="currentColor" />
         {compact ? "Watch Demo" : "Watch the walkthrough"}
-        <span className="font-mono text-xs opacity-65">0:21</span>
+        <span className="text-sm tabular-nums opacity-70">0:21</span>
       </Button>
 
       <WalkthroughDialog
@@ -197,16 +209,14 @@ export function HeroWalkthroughCard() {
             />
             <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors" />
             <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.65)]" />
+              <div className="absolute inset-x-0 top-0 h-0.5 bg-sky-400/90" />
             </div>
           </div>
           <div>
-            <p className="text-[15px] font-medium text-white leading-tight">
-              System Walkthrough
-            </p>
-            <p className="text-xs sm:text-[13px] text-white/75 mt-1">Live Facial Recognition</p>
-            <span className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-xs text-white font-mono">
-              <Play className="size-2.5 fill-white" /> 0:21
+            <p className="text-base font-medium text-white leading-tight">System Walkthrough</p>
+            <p className="text-sm text-white/75 mt-1">Live Facial Recognition</p>
+            <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-sm text-white tabular-nums">
+              <Play className="size-3 fill-white" /> 0:21
             </span>
           </div>
         </button>
@@ -290,7 +300,7 @@ export function CopyCode({ code, title }: { code: string; title: string }) {
   return (
     <div className="bg-night text-night-foreground rounded-2xl overflow-hidden border border-white/10 shadow-lg">
       <div className="flex items-center justify-between border-b border-night-foreground/15 px-5 py-3.5">
-        <span className="eyebrow opacity-65">{title}</span>
+        <span className="text-xs font-mono text-white/70">{title}</span>
         <Button
           variant="glass"
           size="icon"
@@ -352,7 +362,8 @@ export function ContactForm() {
         return "Enter an email address in the format you@institution.com.";
       }
     }
-    if (field === "message" && trimmed.length === 0) return "Enter a brief description of your requirement.";
+    if (field === "message" && trimmed.length === 0)
+      return "Enter a brief description of your requirement.";
     return undefined;
   };
 
@@ -437,9 +448,7 @@ export function ContactForm() {
           setFieldErrors({});
         } catch {
           setSuccess(false);
-          setStatus(
-            `We could not save your message. Please try again or email ${developerEmail}.`,
-          );
+          setStatus(`We could not save your message. Please try again or email ${developerEmail}.`);
         } finally {
           setPending(false);
         }
@@ -448,7 +457,10 @@ export function ContactForm() {
       <div className="grid sm:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">
           <label htmlFor={nameId} className="text-sm font-medium text-foreground">
-            Full Name <span aria-hidden="true" className="text-destructive">*</span>
+            Full Name{" "}
+            <span aria-hidden="true" className="text-destructive">
+              *
+            </span>
           </label>
           <input
             id={nameId}
@@ -467,8 +479,11 @@ export function ContactForm() {
             }`}
           />
           {fieldErrors.name && (
-            <p id={`${nameId}-error`} className="text-xs text-destructive flex items-center gap-1.5 mt-0.5">
-              <AlertCircle className="size-3.5 shrink-0" aria-hidden="true" />
+            <p
+              id={`${nameId}-error`}
+              className="text-sm text-destructive flex items-center gap-1.5 mt-0.5"
+            >
+              <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
               <span>{fieldErrors.name}</span>
             </p>
           )}
@@ -476,9 +491,12 @@ export function ContactForm() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor={emailId} className="text-sm font-medium text-foreground">
-            Email Address <span aria-hidden="true" className="text-destructive">*</span>
+            Email Address{" "}
+            <span aria-hidden="true" className="text-destructive">
+              *
+            </span>
           </label>
-          <span id={emailHintId} className="text-xs text-muted-foreground">
+          <span id={emailHintId} className="text-sm text-muted-foreground">
             Format: you@institution.com
           </span>
           <input
@@ -502,8 +520,11 @@ export function ContactForm() {
             }`}
           />
           {fieldErrors.email && (
-            <p id={`${emailId}-error`} className="text-xs text-destructive flex items-center gap-1.5 mt-0.5">
-              <AlertCircle className="size-3.5 shrink-0" aria-hidden="true" />
+            <p
+              id={`${emailId}-error`}
+              className="text-sm text-destructive flex items-center gap-1.5 mt-0.5"
+            >
+              <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
               <span>{fieldErrors.email}</span>
             </p>
           )}
@@ -512,7 +533,10 @@ export function ContactForm() {
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor={messageId} className="text-sm font-medium text-foreground">
-          Message <span aria-hidden="true" className="text-destructive">*</span>
+          Message{" "}
+          <span aria-hidden="true" className="text-destructive">
+            *
+          </span>
         </label>
         <textarea
           id={messageId}
@@ -531,8 +555,11 @@ export function ContactForm() {
           }`}
         />
         {fieldErrors.message && (
-          <p id={`${messageId}-error`} className="text-xs text-destructive flex items-center gap-1.5 mt-0.5">
-            <AlertCircle className="size-3.5 shrink-0" aria-hidden="true" />
+          <p
+            id={`${messageId}-error`}
+            className="text-sm text-destructive flex items-center gap-1.5 mt-0.5"
+          >
+            <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
             <span>{fieldErrors.message}</span>
           </p>
         )}

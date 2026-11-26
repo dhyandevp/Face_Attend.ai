@@ -25,8 +25,8 @@ export default function Privacy() {
       <Link href="/">
         <Brand />
       </Link>
-      <p className="eyebrow mt-16 text-muted-foreground">Legal draft · requires owner review</p>
-      <h1 className="text-5xl mt-4 mb-10 font-medium">Privacy</h1>
+      <h1 className="text-5xl mt-16 mb-3 font-medium">Privacy</h1>
+      <p className="text-sm text-muted-foreground mb-10">Legal draft · requires owner review</p>
       <div className="space-y-6 leading-7 text-foreground/90">
         <p>
           This draft describes the website’s current handling of inquiries. It is not a finalized

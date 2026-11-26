@@ -29,8 +29,8 @@ test.describe("FaceAttend.AI Critical Paths", () => {
     await page.fill('input[name="email"]', "test@institution.edu");
     await page.fill('textarea[name="message"]', "Looking to pilot FaceAttend.AI on campus.");
     await page.click('button[type="submit"]:has-text("Send Message")');
-    await expect(
-      page.getByText(/Your message has been received|Message received/i),
-    ).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(/Your message has been received|Message received/i)).toBeVisible({
+      timeout: 10_000,
+    });
   });
 });

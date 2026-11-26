@@ -7,8 +7,6 @@ import {
   Check,
   ChevronRight,
   Cpu,
-  Eye,
-  EyeOff,
   FileSpreadsheet,
   GraduationCap,
   LockKeyhole,
@@ -41,7 +39,7 @@ export function HeroCanvas({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={() => setPaused((prev) => !prev)}
-        className="tactile-btn absolute bottom-7 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-foreground backdrop-blur-md border border-border/80 px-4 py-2 text-xs sm:text-sm font-medium shadow-xs cursor-pointer"
+        className="tactile-btn absolute bottom-7 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-foreground backdrop-blur-md border border-border/80 px-4 py-2 text-sm font-medium shadow-xs cursor-pointer"
       >
         {paused ? <Play className="size-3.5" /> : <Pause className="size-3.5" />}
         <span>{paused ? "Resume motion" : "Pause motion"}</span>
@@ -101,12 +99,11 @@ export function CapabilitiesGrid() {
     <section id="features" className="py-24 md:py-36 scroll-reveal">
       <div className="max-w-[1240px] mx-auto px-6 md:px-10 flex flex-wrap justify-between items-end gap-6 mb-12">
         <div>
-          <p className="eyebrow text-muted-foreground mb-4">02 / Product capabilities</p>
           <h2 className="text-4xl sm:text-5xl headline-tight font-medium">
             Built for the everyday.
           </h2>
         </div>
-        <span className="eyebrow text-muted-foreground">
+        <span className="text-sm font-medium text-muted-foreground">
           Select any card to inspect specifications
         </span>
       </div>
@@ -133,7 +130,9 @@ export function CapabilitiesGrid() {
                   }`}
                   strokeWidth={1.5}
                 />
-                <span className={`eyebrow font-semibold ${isSelected ? "text-white/60" : "text-muted-foreground"}`}>
+                <span
+                  className={`eyebrow font-semibold ${isSelected ? "text-white/60" : "text-muted-foreground"}`}
+                >
                   0{i + 1}
                 </span>
               </div>
@@ -148,21 +147,29 @@ export function CapabilitiesGrid() {
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <p className={`eyebrow font-semibold ${isSelected ? "text-white/80" : "text-foreground/80"}`}>
+                  <p
+                    className={`eyebrow font-semibold ${isSelected ? "text-white/80" : "text-foreground/80"}`}
+                  >
                     {name}
                   </p>
                   <ChevronRight
                     className={`size-4 transition-transform duration-200 ${
-                      isSelected ? "rotate-90 text-sky-300" : "opacity-60 group-hover:translate-x-0.5"
+                      isSelected
+                        ? "rotate-90 text-sky-300"
+                        : "opacity-60 group-hover:translate-x-0.5"
                     }`}
                   />
                 </div>
-                <p className={`text-sm leading-relaxed ${isSelected ? "text-white/75" : "text-muted-foreground"}`}>
+                <p
+                  className={`text-sm leading-relaxed ${isSelected ? "text-white/75" : "text-muted-foreground"}`}
+                >
                   {body}
                 </p>
                 <p
-                  className={`mt-3 pt-2.5 border-t text-xs sm:text-[13px] font-medium ${
-                    isSelected ? "border-white/10 text-white/70" : "border-border/70 text-muted-foreground"
+                  className={`mt-3 pt-2.5 border-t text-sm font-medium ${
+                    isSelected
+                      ? "border-white/10 text-white/75"
+                      : "border-border/70 text-muted-foreground"
                   }`}
                 >
                   {specLabel}: {specValue}
@@ -217,13 +224,10 @@ export function CapabilitiesGrid() {
 }
 
 export function DemoPreview() {
-  const [showOverlay, setShowOverlay] = useState(true);
-
   return (
     <section className="border-y bg-secondary/40 py-24 md:py-32 scroll-reveal">
       <div className="max-w-[1240px] mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <div>
-          <p className="eyebrow text-muted-foreground mb-5">A closer look</p>
           <h2 className="text-4xl sm:text-5xl headline-tight font-medium">
             See presence
             <br />
@@ -231,19 +235,10 @@ export function DemoPreview() {
           </h2>
           <p className="mt-6 mb-8 text-lg text-muted-foreground max-w-[44ch] leading-relaxed">
             From registration to recognition. Explore the desktop application in the system
-            walkthrough or toggle the live detection overlay.
+            walkthrough.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Demo />
-            <button
-              type="button"
-              aria-pressed={showOverlay}
-              onClick={() => setShowOverlay((v) => !v)}
-              className="tactile-btn inline-flex items-center gap-2 rounded-lg border bg-card hover:bg-secondary px-4 h-10 text-sm font-medium text-foreground cursor-pointer"
-            >
-              {showOverlay ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-              <span>{showOverlay ? "Hide CV overlay" : "Show CV overlay"}</span>
-            </button>
           </div>
         </div>
 
@@ -257,20 +252,6 @@ export function DemoPreview() {
               className="w-full aspect-video object-contain"
               loading="lazy"
             />
-            {showOverlay && (
-              <>
-                <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
-                  <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-sky-400/90 to-transparent shadow-[0_0_12px_rgba(56,189,248,0.65)]" />
-                </div>
-                <div className="absolute top-4 left-4 inline-flex items-center px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-white font-medium">
-                  Haar Cascade · LBPH Active
-                </div>
-                <div className="hidden sm:block absolute bottom-4 right-4 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 px-4 py-2.5 text-xs sm:text-sm text-white pointer-events-none">
-                  <p className="font-semibold text-sky-200">Match · ID #104</p>
-                  <p className="text-white/75 mt-0.5 font-mono text-xs">LBPH dist: 38.4 &lt; threshold</p>
-                </div>
-              </>
-            )}
           </div>
           <span className="block text-sm text-muted-foreground mt-3 font-medium">
             System Walkthrough · Desktop application (Tkinter + OpenCV)
@@ -361,10 +342,12 @@ export function TechExplorer() {
   const techDetail = techStackDetails[selectedTech];
 
   return (
-    <section id="technology" className="max-w-[1240px] mx-auto px-6 md:px-10 py-28 md:py-36 scroll-reveal">
+    <section
+      id="technology"
+      className="max-w-[1240px] mx-auto px-6 md:px-10 py-28 md:py-36 scroll-reveal"
+    >
       <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-14">
         <div>
-          <p className="eyebrow text-muted-foreground mb-5">04 / Under the hood</p>
           <h2 className="text-4xl sm:text-5xl headline-tight font-medium">
             Lightweight tech.
             <br />
@@ -405,7 +388,7 @@ export function TechExplorer() {
               className="panel-reveal mt-4 rounded-xl border bg-card px-4 py-3.5 text-sm shadow-2xs"
               aria-live="polite"
             >
-              <span className="font-display text-xs sm:text-[13px] tracking-wide uppercase text-primary font-semibold">
+              <span className="font-display text-sm tracking-tight text-primary font-semibold">
                 {selectedTech} · {techDetail.role}
               </span>
               <p className="text-muted-foreground mt-1 leading-relaxed">{techDetail.usage}</p>
@@ -416,9 +399,9 @@ export function TechExplorer() {
 
       <div className="grid md:grid-cols-2 gap-10 items-start">
         <div>
-          <p className="eyebrow text-muted-foreground mb-5">
-            System architecture view · select a layer
-          </p>
+          <h3 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground mb-4">
+            System architecture · select a layer
+          </h3>
           <div className="grid gap-2">
             {archSteps.map(({ icon: Icon, name, detail, tab }, i) => {
               const isCurrent = activeArch === i;
@@ -459,7 +442,11 @@ export function TechExplorer() {
         </div>
 
         <div>
-          <div className="flex flex-wrap gap-2 mb-3" role="tablist" aria-label="Code and output examples">
+          <div
+            className="flex flex-wrap gap-2 mb-3"
+            role="tablist"
+            aria-label="Code and output examples"
+          >
             {(
               [
                 { id: "python", label: "Recognition Python" },
@@ -592,7 +579,6 @@ export function UseCaseSelector() {
       <div className="max-w-[1240px] mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-2 gap-8 mb-14">
           <div>
-            <p className="eyebrow text-muted-foreground mb-5">05 / Deploy anywhere</p>
             <h2 className="text-4xl sm:text-5xl headline-tight font-medium">
               Different spaces.
               <br />
@@ -688,7 +674,6 @@ export function FaqAccordion() {
       className="max-w-[1240px] mx-auto px-6 md:px-10 py-24 md:py-32 border-t grid md:grid-cols-[1fr_1.3fr] gap-12 md:gap-20 scroll-reveal"
     >
       <div>
-        <p className="eyebrow text-muted-foreground mb-5">A little more clarity</p>
         <h2 id="faq-heading" className="text-4xl sm:text-5xl headline-tight font-medium">
           Good questions.
           <br />
@@ -724,15 +709,10 @@ export function FaqAccordion() {
             className="border-b py-5"
           >
             <summary className="cursor-pointer text-lg font-medium flex items-center gap-4 list-none py-1">
-              <Plus
-                className="size-5 shrink-0 text-primary accordion-chevron"
-                aria-hidden="true"
-              />
+              <Plus className="size-5 shrink-0 text-primary accordion-chevron" aria-hidden="true" />
               <span>{question}</span>
             </summary>
-            <p className="text-muted-foreground mt-4 pl-9 leading-relaxed max-w-[60ch]">
-              {answer}
-            </p>
+            <p className="text-muted-foreground mt-4 pl-9 leading-relaxed max-w-[60ch]">{answer}</p>
           </details>
         ))}
       </div>

@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, CheckCircle2, Code2, Cpu, FileOutput, Pause, Play } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Code2,
+  Cpu,
+  FileOutput,
+  Pause,
+  Play,
+} from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 export interface WorkflowStage {
@@ -143,7 +152,10 @@ export function WorkflowShowcase() {
 
   useEffect(() => {
     if (!autoPlay || isInteracting || modalOpen) return;
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 
@@ -179,8 +191,10 @@ export function WorkflowShowcase() {
       <div className="max-w-[1240px] mx-auto px-6 md:px-10">
         {/* Spacious Section Header */}
         <div className="max-w-2xl mb-14 md:mb-18 scroll-reveal">
-          <p className="eyebrow text-muted-foreground mb-4">03 / Intelligent workflow</p>
-          <h2 id="workflow-heading" className="text-4xl sm:text-5xl lg:text-[56px] headline-tight font-semibold">
+          <h2
+            id="workflow-heading"
+            className="text-4xl sm:text-5xl lg:text-[56px] headline-tight font-semibold"
+          >
             From first capture to the final report.
           </h2>
           <p className="text-muted-foreground mt-5 text-lg sm:text-xl leading-relaxed max-w-[54ch]">
@@ -256,10 +270,24 @@ export function WorkflowShowcase() {
                           ? 54
                           : 80;
                 const rotateZ = offset * 2.5;
-                const scale =
-                  isActive ? 1 : absOffset === 1 ? 0.85 : absOffset === 2 ? 0.74 : absOffset === 3 ? 0.64 : 0.56;
-                const opacity =
-                  isActive ? 1 : absOffset === 1 ? 0.72 : absOffset === 2 ? 0.44 : absOffset === 3 ? 0.14 : 0;
+                const scale = isActive
+                  ? 1
+                  : absOffset === 1
+                    ? 0.85
+                    : absOffset === 2
+                      ? 0.74
+                      : absOffset === 3
+                        ? 0.64
+                        : 0.56;
+                const opacity = isActive
+                  ? 1
+                  : absOffset === 1
+                    ? 0.72
+                    : absOffset === 2
+                      ? 0.44
+                      : absOffset === 3
+                        ? 0.14
+                        : 0;
 
                 return (
                   <button
@@ -276,11 +304,7 @@ export function WorkflowShowcase() {
                     }}
                     className={`orbital-wheel-item absolute left-0 pl-14 sm:pl-16 origin-left flex items-center py-2 text-left rounded-xl focus-visible:outline-2 focus-visible:outline-sky-400 focus-visible:outline-offset-4 ${
                       absOffset > 2 ? "pointer-events-none" : "cursor-pointer"
-                    } ${
-                      isActive
-                        ? "text-white z-20 drop-shadow-[0_2px_18px_rgba(96,165,250,0.35)]"
-                        : "text-white/85 hover:text-white z-10"
-                    }`}
+                    } ${isActive ? "text-white z-20" : "text-white/85 hover:text-white z-10"}`}
                   >
                     <span
                       className={`font-display tracking-[-0.025em] leading-none transition-all duration-300 ${
@@ -300,7 +324,7 @@ export function WorkflowShowcase() {
           {/* Right Column: Animated Active Stage Details + Signature Blue CTA */}
           <div className="relative z-10 flex flex-col items-start justify-center">
             <div key={activeStage.id} className="stage-content-in">
-              <p className="font-display text-[13px] sm:text-sm font-semibold tracking-[0.12em] uppercase text-sky-200/85 mb-5">
+              <p className="font-display text-sm sm:text-base font-semibold tracking-tight text-sky-200/90 mb-4">
                 {activeStage.eyebrow}
               </p>
 
@@ -343,9 +367,7 @@ export function WorkflowShowcase() {
                   >
                     <span
                       className={`h-2 rounded-full transition-all duration-300 ease-out ${
-                        selected
-                          ? "w-8 bg-primary shadow-[0_0_12px_rgba(37,99,235,0.7)]"
-                          : "w-2 bg-white/35 group-hover:bg-white/65"
+                        selected ? "w-8 bg-sky-400" : "w-2 bg-white/35 group-hover:bg-white/65"
                       }`}
                     />
                   </button>
@@ -430,7 +452,7 @@ export function WorkflowShowcase() {
               <span className="eyebrow text-white/75 flex items-center gap-1.5">
                 <Code2 className="size-4 text-sky" /> Pipeline implementation
               </span>
-              <span className="text-xs sm:text-sm font-medium text-white/75">Python · OpenCV</span>
+              <span className="text-sm font-medium text-white/75">Python · OpenCV</span>
             </div>
             <pre className="p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed text-sky-100 font-mono">
               <code>{activeStage.snippet}</code>

@@ -25,8 +25,8 @@ export default function Terms() {
       <Link href="/">
         <Brand />
       </Link>
-      <p className="eyebrow mt-16 text-muted-foreground">Legal draft · requires owner review</p>
-      <h1 className="text-5xl mt-4 mb-10 font-medium">Terms</h1>
+      <h1 className="text-5xl mt-16 mb-3 font-medium">Terms</h1>
+      <p className="text-sm text-muted-foreground mb-10">Legal draft · requires owner review</p>
       <div className="space-y-6 leading-7 text-foreground/90">
         <p>This is a placeholder for owner-reviewed terms, not a finalized agreement.</p>
         <h2 className="text-2xl font-medium mt-8 mb-4">Product information</h2>

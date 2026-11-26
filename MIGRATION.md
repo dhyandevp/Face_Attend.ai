@@ -10,20 +10,21 @@ All proprietary Lovable dependencies, scripts, telemetry, and platform integrati
 
 ### Removed Items Inventory
 
-| Category | Removed Item | Impact & What Replaced It |
-| :--- | :--- | :--- |
-| **Packages** | `@lovable.dev/vite-tanstack-config` (v2.27.2) | Replaced with standard `next` (v15), `react` (v19), and standard Tailwind CSS / PostCSS. |
-| **Lockfiles & Tooling** | `bunfig.toml`, `bun.lock` | Standardized on `pnpm` (v12) with standard `pnpm-lock.yaml`. |
-| **Config & Builders** | `vite.config.ts` | Replaced by `next.config.ts` with Next.js App Router and standalone output capabilities. |
-| **Proprietary Folders** | `.lovable/` (project metadata, plan documents) | Completely removed. |
-| **Database & Cloud** | `supabase/` folder, `@supabase/supabase-js` | Replaced with clean PostgreSQL connection via Drizzle ORM (`src/db/`). |
-| **Auth & Telemetry** | `src/integrations/supabase/*` (`previewAuthStorage.ts`, `auth-attacher.ts`, `auth-middleware.ts`, `cron-auth.ts`, `client.ts`, `client.server.ts`) | Completely removed. Inquiries are stored directly into PostgreSQL via server actions/route handlers. |
-| **Error Telemetry** | `src/lib/lovable-error-reporting.ts`, `src/lib/error-capture.ts`, `src/lib/error-page.ts` | Replaced by standard Next.js error boundaries and error handling. |
-| **Vite/TanStack Routing** | `src/start.ts`, `src/server.ts`, `src/router.tsx`, `src/routeTree.gen.ts`, `src/routes/` | Replaced with Next.js App Router (`src/app/page.tsx`, `src/app/privacy/page.tsx`, `src/app/terms/page.tsx`). |
-| **Cloud Asset Proxy** | `src/assets/*.asset.json` pointing to `/__l5e/assets-v1/...` | Real media assets (`faceattend-campus.png`, `faceattend-demo.jpg`, `faceattend-walkthrough.mp4`) downloaded and placed in `public/assets/`. |
-| **Branding & Agent Rules** | `AGENTS.md` Lovable block, `README.md` Lovable header | Replaced with clean product guidelines and open-source documentation. |
+| Category                   | Removed Item                                                                                                                                       | Impact & What Replaced It                                                                                                                   |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Packages**               | `@lovable.dev/vite-tanstack-config` (v2.27.2)                                                                                                      | Replaced with standard `next` (v15), `react` (v19), and standard Tailwind CSS / PostCSS.                                                    |
+| **Lockfiles & Tooling**    | `bunfig.toml`, `bun.lock`                                                                                                                          | Standardized on `pnpm` (v12) with standard `pnpm-lock.yaml`.                                                                                |
+| **Config & Builders**      | `vite.config.ts`                                                                                                                                   | Replaced by `next.config.ts` with Next.js App Router and standalone output capabilities.                                                    |
+| **Proprietary Folders**    | `.lovable/` (project metadata, plan documents)                                                                                                     | Completely removed.                                                                                                                         |
+| **Database & Cloud**       | `supabase/` folder, `@supabase/supabase-js`                                                                                                        | Replaced with clean PostgreSQL connection via Drizzle ORM (`src/db/`).                                                                      |
+| **Auth & Telemetry**       | `src/integrations/supabase/*` (`previewAuthStorage.ts`, `auth-attacher.ts`, `auth-middleware.ts`, `cron-auth.ts`, `client.ts`, `client.server.ts`) | Completely removed. Inquiries are stored directly into PostgreSQL via server actions/route handlers.                                        |
+| **Error Telemetry**        | `src/lib/lovable-error-reporting.ts`, `src/lib/error-capture.ts`, `src/lib/error-page.ts`                                                          | Replaced by standard Next.js error boundaries and error handling.                                                                           |
+| **Vite/TanStack Routing**  | `src/start.ts`, `src/server.ts`, `src/router.tsx`, `src/routeTree.gen.ts`, `src/routes/`                                                           | Replaced with Next.js App Router (`src/app/page.tsx`, `src/app/privacy/page.tsx`, `src/app/terms/page.tsx`).                                |
+| **Cloud Asset Proxy**      | `src/assets/*.asset.json` pointing to `/__l5e/assets-v1/...`                                                                                       | Real media assets (`faceattend-campus.png`, `faceattend-demo.jpg`, `faceattend-walkthrough.mp4`) downloaded and placed in `public/assets/`. |
+| **Branding & Agent Rules** | `AGENTS.md` Lovable block, `README.md` Lovable header                                                                                              | Replaced with clean product guidelines and open-source documentation.                                                                       |
 
 ### Falcon References Audit
+
 A case-insensitive scan (`grep -ri "falcon" .`) returned **zero (0)** matches across the entire codebase, configuration files, and documentation. No service or dependency named "falcon" was used.
 
 ---
@@ -48,6 +49,7 @@ A case-insensitive scan (`grep -ri "falcon" .`) returned **zero (0)** matches ac
 All secrets and domain configurations are driven by standard environment variables. Never hardcode credentials.
 
 See `.env.example`:
+
 ```bash
 # PostgreSQL Database Connection URL (e.g. Neon, Supabase self-hosted, or local Postgres)
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/faceattend"
@@ -64,6 +66,7 @@ NODE_ENV="production"
 ## 4. How to Run, Test, and Deploy
 
 ### Local Development
+
 ```bash
 # 1. Install dependencies
 pnpm install
@@ -77,9 +80,11 @@ pnpm db:push
 # 4. Start local development server
 pnpm dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000).
 
 ### Running Tests
+
 ```bash
 # Run Vitest unit tests
 pnpm test
@@ -92,6 +97,7 @@ pnpm test:e2e
 ```
 
 ### Production Build
+
 ```bash
 # Build the application
 pnpm build
@@ -101,6 +107,7 @@ pnpm start
 ```
 
 ### Deploying with Docker
+
 ```bash
 # Build container image
 docker build -t faceattend:latest .
@@ -116,6 +123,7 @@ docker run -p 3000:3000 -e DATABASE_URL="your_postgres_url" faceattend:latest
 A standalone, documented, and reversible data migration script is provided in `scripts/migrate-data.mjs`.
 
 ### Commands:
+
 ```bash
 # Export existing records from source database
 node scripts/migrate-data.mjs --export
