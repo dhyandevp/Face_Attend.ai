@@ -1,15 +1,60 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 import Privacy from "@/app/privacy/page";
 import Terms from "@/app/terms/page";
 
-describe("App routes", () => {
+describe("App routes and interactions", () => {
   it("renders the Home page hero and heading", () => {
     render(<Home />);
     expect(screen.getByRole("heading", { level: 1, name: /FaceAttend/i })).toBeInTheDocument();
     expect(screen.getByText(/Attendance automation/i)).toBeInTheDocument();
+  });
+
+  it("cycles workflow stages in the orbital showcase", () => {
+    render(<Home />);
+    expect(screen.getByText(/Stage 4 of 6/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /Next workflow stage/i }));
+    expect(screen.getByText(/Stage 5 of 6/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 3, name: /Build clean daily CSV attendance logs/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("validates contact form fields after interaction without premature errors", () => {
+    render(<Home />);
+    const emailInput = screen.getByLabelText(/Email Address/i);
+    expect(emailInput).toHaveAttribute("aria-invalid", "false");
+
+    fireEvent.change(emailInput, { target: { value: "not-an-email" } });
+    fireEvent.blur(emailInput);
+    expect(emailInput).toHaveAttribute("aria-invalid", "true");
+    expect(
+      screen.getByText(/Enter an email address in the format you@institution\.com/i),
+    ).toBeInTheDocument();
+  });
+
+  it("opens the workflow stage inspector dialog on Learn more", () => {
+    render(<Home />);
+    fireEvent.click(screen.getByRole("button", { name: /Learn more/i }));
+    expect(screen.getByText(/Pipeline implementation/i)).toBeInTheDocument();
+  });
+
+  it("switches technology stack and code tabs interactively", () => {
+    render(<Home />);
+    fireEvent.click(screen.getByRole("tab", { name: /Sample CSV Output/i }));
+    expect(screen.getByText(/Attendance_2026-11-26\.csv/i)).toBeInTheDocument();
+  });
+
+  it("toggles FAQ expand all / collapse all", () => {
+    render(<Home />);
+    const toggleBtn = screen.getByRole("button", { name: /Expand all/i });
+    fireEvent.click(toggleBtn);
+    expect(screen.getByRole("button", { name: /Collapse all/i })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
   });
 
   it("renders the Privacy policy page", () => {

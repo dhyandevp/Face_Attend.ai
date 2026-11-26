@@ -2,7 +2,7 @@
 
 import React from "react";
 
-// Pre-calculated deterministic star positions for perfect hydration without client mismatch
+// Pre-calculated deterministic star positions for clean SSR hydration
 const stars = [
   { top: "6%", left: "12%", size: 1.5, opacity: 0.6, delay: "0.2s", duration: "3.2s" },
   { top: "11%", left: "28%", size: 2.5, opacity: 0.9, delay: "1.1s", duration: "4.1s" },
@@ -67,7 +67,7 @@ export function HeroStarfield() {
       {stars.map((star, i) => (
         <span
           key={`star-${i}`}
-          className="absolute rounded-full bg-white transition-opacity"
+          className="absolute rounded-full bg-white star-twinkle"
           style={{
             top: star.top,
             left: star.left,
@@ -78,7 +78,7 @@ export function HeroStarfield() {
               star.size > 2
                 ? "0 0 6px rgba(255, 255, 255, 0.9), 0 0 12px rgba(147, 197, 253, 0.6)"
                 : "none",
-            animation: `twinkle ${star.duration} ease-in-out infinite`,
+            animationDuration: star.duration,
             animationDelay: star.delay,
           }}
         />
@@ -88,20 +88,19 @@ export function HeroStarfield() {
       {sparkles.map((sparkle, i) => (
         <div
           key={`sparkle-${i}`}
-          className="absolute"
+          className="absolute star-sparkle"
           style={{
             top: sparkle.top,
             left: sparkle.left,
             width: `${sparkle.size}px`,
             height: `${sparkle.size}px`,
-            animation: "sparkle 4s ease-in-out infinite",
             animationDelay: sparkle.delay,
           }}
         >
           <svg
+            aria-hidden="true"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
             className="w-full h-full text-white/90 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
           >
             <path d="M12 0L14 9L23 12L14 15L12 24L10 15L1 12L10 9L12 0Z" fill="currentColor" />
@@ -110,13 +109,7 @@ export function HeroStarfield() {
       ))}
 
       {/* Gentle Shooting Star */}
-      <div
-        className="absolute top-[8%] right-[10%] w-[140px] h-[1.5px] bg-gradient-to-l from-white via-sky-300 to-transparent"
-        style={{
-          animation: "shooting-star 14s ease-in-out infinite",
-          animationDelay: "3s",
-        }}
-      />
+      <div className="absolute top-[8%] right-[10%] w-[140px] h-[1.5px] bg-gradient-to-l from-white via-sky-300 to-transparent shooting-star" />
     </div>
   );
 }
