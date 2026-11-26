@@ -1,4 +1,8 @@
 import "@testing-library/jest-dom/vitest";
+import React from "react";
+
+// Provide global React for JSX rendering in jsdom
+(globalThis as unknown as { React: typeof React }).React = React;
 
 Object.defineProperty(window, "scrollTo", {
   writable: true,
@@ -17,4 +21,15 @@ Object.defineProperty(window, "matchMedia", {
     removeEventListener: () => {},
     dispatchEvent: () => {},
   }),
+});
+
+class MockIntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  value: MockIntersectionObserver,
 });
