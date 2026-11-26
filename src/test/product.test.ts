@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
   editions,
-  contactSchema,
   benchmarks,
   plannedFeatures,
   developerEmail,
@@ -28,22 +27,4 @@ describe("Product rules", () => {
     expect(benchmarks.speed).toBeNull();
   });
   it("keeps unverified cloud sync planned", () => expect(plannedFeatures).toContain("Cloud sync"));
-  it("rejects invalid emails", () =>
-    expect(
-      contactSchema.safeParse({ name: "Test", email: "invalid", message: "Hello" }).success,
-    ).toBe(false));
-  it("rejects spam honeypot", () =>
-    expect(
-      contactSchema.safeParse({
-        name: "Test",
-        email: "test@example.com",
-        message: "Hello",
-        website: "spam",
-      }).success,
-    ).toBe(false));
-  it("accepts a legitimate inquiry", () =>
-    expect(
-      contactSchema.safeParse({ name: "Test", email: "test@example.com", message: "Hello" })
-        .success,
-    ).toBe(true));
 });

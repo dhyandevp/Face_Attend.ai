@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 import Privacy from "@/app/privacy/page";
 import Terms from "@/app/terms/page";
+import { developerEmail } from "@/lib/product";
 
 describe("App routes and interactions", () => {
   it("renders the Home page hero and heading", () => {
@@ -22,17 +23,14 @@ describe("App routes and interactions", () => {
     ).toBeInTheDocument();
   });
 
-  it("validates contact form fields after interaction without premature errors", () => {
+  it("renders the direct contact section with developer email and portfolio links", () => {
     render(<Home />);
-    const emailInput = screen.getByLabelText(/Email Address/i);
-    expect(emailInput).toHaveAttribute("aria-invalid", "false");
-
-    fireEvent.change(emailInput, { target: { value: "not-an-email" } });
-    fireEvent.blur(emailInput);
-    expect(emailInput).toHaveAttribute("aria-invalid", "true");
     expect(
-      screen.getByText(/Enter an email address in the format you@institution\.com/i),
+      screen.getByRole("heading", { level: 2, name: /Your campus\.\s*Your next chapter\./i }),
     ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("link", { name: new RegExp(developerEmail, "i") }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("opens the workflow stage inspector dialog on Learn more", () => {

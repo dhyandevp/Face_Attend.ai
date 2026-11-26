@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -114,7 +114,43 @@ with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
 // Extended window (-4..+4) keeps incoming/outgoing slots mounted so transitions never pop
 const WHEEL_OFFSETS = [-4, -3, -2, -1, 0, 1, 2, 3, 4] as const;
 
+// Unified orbital arc geometry shared by the SVG rail, stage track nodes, and focal orb
+const ORB_CENTER_X = 24;
+const ARC_RADIUS = 320;
+const ARC_CENTER_X = ORB_CENTER_X + ARC_RADIUS; // 344
+const ARC_CENTER_Y = 190;
+const STEP_ANGLE_RAD = (11.2 * Math.PI) / 180;
+
+function arcPoint(radius: number, angleRad: number) {
+  return {
+    x: Number((ARC_CENTER_X - radius * Math.cos(angleRad)).toFixed(2)),
+    y: Number((ARC_CENTER_Y + radius * Math.sin(angleRad)).toFixed(2)),
+  };
+}
+
+function buildArcPath(radius: number, maxAngleDeg: number) {
+  const rad = (maxAngleDeg * Math.PI) / 180;
+  const top = arcPoint(radius, -rad);
+  const bottom = arcPoint(radius, rad);
+  return `M ${top.x} ${top.y} A ${radius} ${radius} 0 0 0 ${bottom.x} ${bottom.y}`;
+}
+
+const OUTER_COMPANION_ARC = buildArcPath(368, 34);
+const PRIMARY_RAIL_ARC = buildArcPath(ARC_RADIUS, 36);
+const ACTIVE_RAIL_ARC = buildArcPath(ARC_RADIUS, 12.5);
+const RAIL_TICKS = [-2.5, -1.5, -0.5, 0.5, 1.5, 2.5].map((step) => {
+  const theta = step * STEP_ANGLE_RAD;
+  const inner = arcPoint(ARC_RADIUS - 3, theta);
+  const outer = arcPoint(ARC_RADIUS + 3, theta);
+  return { step, x1: inner.x, y1: inner.y, x2: outer.x, y2: outer.y };
+});
+
 export function WorkflowShowcase() {
+  const uid = useId();
+  const railFadeId = `${uid}-rail-fade`;
+  const companionFadeId = `${uid}-companion-fade`;
+  const activeArcId = `${uid}-active-arc`;
+
   const [virtualIndex, setVirtualIndex] = useState(3); // Starts at "Recognize" (Stage 4 of 6)
   const [statusMessage, setStatusMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -216,36 +252,138 @@ export function WorkflowShowcase() {
               setIsInteracting(false);
             }
           }}
-          className="orbital-card relative rounded-3xl border border-white/10 shadow-[0_32px_80px_-24px_rgba(8,13,42,0.55)] px-6 sm:px-12 lg:px-20 py-12 md:py-16 min-h-[480px] md:min-h-[540px] grid md:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-16 items-center overflow-hidden"
+          className="orbital-card relative rounded-3xl border border-white/10 shadow-[0_32px_80px_-24px_rgba(8,13,42,0.55)] px-6 sm:px-12 lg:px-20 py-10 md:py-16 min-h-[480px] md:min-h-[540px] grid md:grid-cols-[0.95fr_1.05fr] gap-8 md:gap-10 lg:gap-16 items-center overflow-hidden"
         >
-          {/* Decorative Ambient Orbital Rings */}
+          {/* Left Column: Unified Orbital Arc Dial */}
           <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-36 top-1/2 -translate-y-1/2 size-[520px] rounded-full border border-white/[0.04] orbital-ring-spin"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 size-[380px] rounded-full border border-sky-400/[0.07]"
-          />
-
-          {/* Left Column: Curved Orbital Wheel */}
-          <div
-            className="relative h-[340px] sm:h-[380px] flex items-center justify-center md:justify-start orbital-wheel-mask select-none"
+            className="relative h-[310px] sm:h-[370px] flex items-center justify-start select-none"
             onKeyDown={handleWheelKeyDown}
             role="group"
             aria-label="Pipeline stage selector"
           >
-            <div className="relative w-full max-w-[360px] h-full flex items-center">
-              {/* Anchored Glowing 3D Orb + Ripple Ring at Active Focal Slot */}
+            <div className="relative w-full max-w-[360px] h-full">
+              {/* Precision SVG Orbital Rail & Companion Arcs (exact match to stage node geometry) */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 360 380"
+                fill="none"
+                className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 w-[360px] h-[380px] overflow-visible"
+              >
+                <defs>
+                  <linearGradient
+                    id={railFadeId}
+                    gradientUnits="userSpaceOnUse"
+                    x1="0"
+                    y1="10"
+                    x2="0"
+                    y2="370"
+                  >
+                    <stop offset="0%" stopColor="rgb(148 163 184)" stopOpacity="0" />
+                    <stop offset="18%" stopColor="rgb(148 163 184)" stopOpacity="0.16" />
+                    <stop offset="50%" stopColor="rgb(56 189 248)" stopOpacity="0.34" />
+                    <stop offset="82%" stopColor="rgb(148 163 184)" stopOpacity="0.16" />
+                    <stop offset="100%" stopColor="rgb(148 163 184)" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient
+                    id={companionFadeId}
+                    gradientUnits="userSpaceOnUse"
+                    x1="0"
+                    y1="16"
+                    x2="0"
+                    y2="364"
+                  >
+                    <stop offset="0%" stopColor="rgb(255 255 255)" stopOpacity="0" />
+                    <stop offset="25%" stopColor="rgb(255 255 255)" stopOpacity="0.06" />
+                    <stop offset="50%" stopColor="rgb(125 211 252)" stopOpacity="0.12" />
+                    <stop offset="75%" stopColor="rgb(255 255 255)" stopOpacity="0.06" />
+                    <stop offset="100%" stopColor="rgb(255 255 255)" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient
+                    id={activeArcId}
+                    gradientUnits="userSpaceOnUse"
+                    x1="0"
+                    y1="120"
+                    x2="0"
+                    y2="260"
+                  >
+                    <stop offset="0%" stopColor="rgb(56 189 248)" stopOpacity="0" />
+                    <stop offset="50%" stopColor="rgb(125 211 252)" stopOpacity="0.72" />
+                    <stop offset="100%" stopColor="rgb(56 189 248)" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+
+                <path d={OUTER_COMPANION_ARC} stroke={`url(#${companionFadeId})`} strokeWidth="1" />
+                <path d={PRIMARY_RAIL_ARC} stroke={`url(#${railFadeId})`} strokeWidth="1" />
+                <path
+                  d={ACTIVE_RAIL_ARC}
+                  stroke={`url(#${activeArcId})`}
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+
+                {RAIL_TICKS.map((tick) => (
+                  <line
+                    key={tick.step}
+                    x1={tick.x1}
+                    y1={tick.y1}
+                    x2={tick.x2}
+                    y2={tick.y2}
+                    stroke="rgb(148 163 184)"
+                    strokeOpacity="0.22"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                ))}
+              </svg>
+
+              {/* Anchored Glowing 3D Focal Orb + Unclipped Aura + Precision Reticle */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center size-10 sm:size-12"
+                className="pointer-events-none absolute left-[24px] top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center size-12"
               >
+                <span className="absolute size-52 rounded-full orbital-orb-aura orbital-aura-breathe" />
+                <svg
+                  viewBox="0 0 68 68"
+                  fill="none"
+                  className="absolute size-[68px] orbital-ring-spin"
+                >
+                  <circle
+                    cx="34"
+                    cy="34"
+                    r="30"
+                    stroke="rgb(125 211 252)"
+                    strokeOpacity="0.24"
+                    strokeWidth="1"
+                    strokeDasharray="6 6 2 6"
+                  />
+                  <line
+                    x1="34"
+                    y1="1"
+                    x2="34"
+                    y2="5.5"
+                    stroke="rgb(125 211 252)"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                  />
+                  <line
+                    x1="34"
+                    y1="62.5"
+                    x2="34"
+                    y2="67"
+                    stroke="rgb(125 211 252)"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                  />
+                </svg>
                 <span
                   key={`ripple-${virtualIndex}`}
-                  className="absolute inset-0 rounded-full border border-sky-400/55 orbital-orb-ripple"
+                  className="absolute inset-0 rounded-full border border-sky-300/60 orbital-orb-ripple"
                 />
-                <span className="relative size-10 sm:size-12 rounded-full orbital-orb orbital-orb-breathe" />
+                <span className="relative size-12 rounded-full orbital-orb orbital-orb-breathe">
+                  <span className="absolute top-[18%] right-[20%] size-3.5 rounded-full bg-white/55 blur-[3px]" />
+                </span>
               </div>
 
               {WHEEL_OFFSETS.map((offset) => {
@@ -256,38 +394,13 @@ export function WorkflowShowcase() {
 
                 const isActive = offset === 0;
                 const absOffset = Math.abs(offset);
+                const theta = offset * STEP_ANGLE_RAD;
 
-                // Smooth curved orbital arc geometry
-                const translateY = offset * 62;
-                const translateX =
-                  offset === 0
-                    ? 0
-                    : absOffset === 1
-                      ? 12
-                      : absOffset === 2
-                        ? 30
-                        : absOffset === 3
-                          ? 54
-                          : 80;
-                const rotateZ = offset * 2.5;
-                const scale = isActive
-                  ? 1
-                  : absOffset === 1
-                    ? 0.85
-                    : absOffset === 2
-                      ? 0.74
-                      : absOffset === 3
-                        ? 0.64
-                        : 0.56;
-                const opacity = isActive
-                  ? 1
-                  : absOffset === 1
-                    ? 0.72
-                    : absOffset === 2
-                      ? 0.44
-                      : absOffset === 3
-                        ? 0.14
-                        : 0;
+                // Exact position on the shared R=320 circular orbital rail
+                const translateX = Number((ARC_RADIUS * (1 - Math.cos(theta))).toFixed(2));
+                const translateY = Number((ARC_RADIUS * Math.sin(theta)).toFixed(2));
+                const scale = isActive ? 1 : absOffset === 1 ? 0.88 : absOffset === 2 ? 0.76 : 0.66;
+                const opacity = isActive ? 1 : absOffset === 1 ? 0.84 : absOffset === 2 ? 0.52 : 0;
 
                 return (
                   <button
@@ -299,18 +412,39 @@ export function WorkflowShowcase() {
                     aria-hidden={absOffset > 2 ? true : undefined}
                     tabIndex={absOffset <= 2 ? 0 : -1}
                     style={{
-                      transform: `translate3d(${translateX}px, ${translateY}px, 0) rotate(${rotateZ}deg) scale(${scale})`,
+                      transformOrigin: `${ORB_CENTER_X}px 50%`,
+                      transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
                       opacity,
                     }}
-                    className={`orbital-wheel-item absolute left-0 pl-14 sm:pl-16 origin-left flex items-center py-2 text-left rounded-xl focus-visible:outline-2 focus-visible:outline-sky-400 focus-visible:outline-offset-4 ${
-                      absOffset > 2 ? "pointer-events-none" : "cursor-pointer"
-                    } ${isActive ? "text-white z-20" : "text-white/85 hover:text-white z-10"}`}
+                    className={`orbital-wheel-item group absolute left-0 top-[calc(50%-28px)] h-14 pr-4 flex items-center text-left rounded-xl focus-visible:outline-2 focus-visible:outline-sky-400 focus-visible:outline-offset-4 ${
+                      absOffset > 2
+                        ? "pointer-events-none"
+                        : isActive
+                          ? "cursor-default"
+                          : "cursor-pointer"
+                    } ${isActive ? "text-white z-20" : "text-sky-100/90 hover:text-white z-10"}`}
                   >
+                    {/* Track Node Dot aligned to ORB_CENTER_X (24px) */}
                     <span
-                      className={`font-display tracking-[-0.025em] leading-none transition-all duration-300 ${
+                      aria-hidden="true"
+                      className="w-12 shrink-0 flex items-center justify-center"
+                    >
+                      <span
+                        className={`rounded-full transition-all duration-300 ${
+                          isActive
+                            ? "size-2 bg-sky-200 opacity-0 scale-50"
+                            : absOffset === 1
+                              ? "size-2.5 bg-sky-300/85 ring-2 ring-[#070b24]/80 shadow-[0_0_8px_rgba(56,189,248,0.45)] group-hover:scale-125 group-hover:bg-sky-300"
+                              : "size-2 bg-slate-300/70 ring-2 ring-[#070b24]/80 group-hover:scale-125 group-hover:bg-sky-300"
+                        }`}
+                      />
+                    </span>
+
+                    <span
+                      className={`ml-4 font-display tracking-[-0.025em] leading-none transition-all duration-300 ${
                         isActive
-                          ? "text-[36px] sm:text-[46px] lg:text-[52px] font-semibold"
-                          : "text-[30px] sm:text-[38px] lg:text-[42px] font-medium"
+                          ? "text-[32px] sm:text-[42px] lg:text-[48px] font-semibold drop-shadow-[0_2px_18px_rgba(56,189,248,0.22)]"
+                          : "text-[28px] sm:text-[36px] lg:text-[40px] font-medium"
                       }`}
                     >
                       {stage.name}

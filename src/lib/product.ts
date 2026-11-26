@@ -1,15 +1,8 @@
-import { z } from "zod";
 export const repoUrl = "https://github.com/dhyandevp/FaceAttend.ai";
 export const developerEmail = "dhyandevp@proton.me";
 export const developerWebsite = "https://dhyandev.sbs";
 export const developerBioUrl = "https://link.dhyandev.sbs";
 export const developerGithub = "https://github.com/dhyandevp";
-export const contactSchema = z.object({
-  name: z.string().trim().min(1, "Enter your full name.").max(100),
-  email: z.string().trim().email("Enter a valid email address.").max(255),
-  message: z.string().trim().min(1, "Enter your message.").max(2000),
-  website: z.string().max(0, "Submission rejected.").default(""),
-});
 export const benchmarks: { accuracy: number | null; speed: number | null } = {
   accuracy: null,
   speed: null,

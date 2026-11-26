@@ -33,11 +33,8 @@ A case-insensitive scan (`grep -ri "falcon" .`) returned **zero (0)** matches ac
 
 - **Framework:** Next.js 15 (App Router) + React 19 + TypeScript (strict mode)
 - **Styling:** Tailwind CSS v4 + Radix UI primitives + Lucide Icons
-- **Database:** PostgreSQL with Drizzle ORM
-  - Schema: `src/db/schema.ts` (`contact_submissions` table)
-  - Connection client: `src/db/index.ts` with connection pooling
+- **Contact:** Direct links to developer email and portfolio (`mailto:`, `https://dhyandev.sbs`, `https://link.dhyandev.sbs`)
 - **Validation & Environment:** Zod schemas + typed environment loader via `@t3-oss/env-nextjs` (`src/env.ts`)
-- **API & Server Actions:** Next.js route handler (`src/app/api/contact/route.ts`) and Server Action with honeypot spam protection and rate limiting
 - **Static Assets:** Self-contained in `public/assets/`
 - **Testing:** Vitest + React Testing Library (11 unit tests passing) + Playwright for end-to-end testing
 - **CI / Containerization:** Dockerfile (multi-stage alpine build) + GitHub Actions CI workflow (`.github/workflows/ci.yml`)
@@ -142,8 +139,8 @@ node scripts/migrate-data.mjs --rollback
 
 ## 6. Assumptions & Non-Automated Items
 
-1. **Database Provisioning**: The migration connects to any standard PostgreSQL database. A live database URL (`DATABASE_URL`) should be configured in deployment environments (e.g., Neon, AWS RDS, Supabase self-hosted, or local PostgreSQL). For local development, an offline fallback is implemented so the contact form responds gracefully even when no database is running.
-2. **SMTP / Email Notifications**: In the original app, emailing attendance was handled by the local desktop Python script (`config.ini` / SMTP). Website contact submissions are stored directly in PostgreSQL. If an external transactional email provider (such as Resend) is required for website contact forms in the future, it can be added to `/api/contact`.
+1. **Direct Contact**: Inquiries and outreach are directed straight to developer email (`dhyandevp@proton.me`), personal website, and bio links.
+2. **SMTP / Email Notifications**: In the desktop app, emailing attendance is handled by the local desktop Python script (`config.ini` / SMTP).
 
 ---
 

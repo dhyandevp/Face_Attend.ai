@@ -23,14 +23,9 @@ test.describe("FaceAttend.AI Critical Paths", () => {
     await expect(page).toHaveURL(/\/$/);
   });
 
-  test("validates and submits the contact inquiry form", async ({ page }) => {
+  test("displays direct contact channels in the contact section", async ({ page }) => {
     await page.goto("/");
-    await page.fill('input[name="name"]', "Test Institution");
-    await page.fill('input[name="email"]', "test@institution.edu");
-    await page.fill('textarea[name="message"]', "Looking to pilot FaceAttend.AI on campus.");
-    await page.click('button[type="submit"]:has-text("Send Message")');
-    await expect(page.getByText(/Your message has been received|Message received/i)).toBeVisible({
-      timeout: 10_000,
-    });
+    await expect(page.locator("#contact")).toBeVisible();
+    await expect(page.locator('a[href^="mailto:"]')).toBeVisible();
   });
 });

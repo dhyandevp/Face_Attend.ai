@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Check, Github, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Brand, ContactForm, CopyCode, Demo, Navigation } from "@/components/site/site-controls";
+import { Brand, CopyCode, Demo, Navigation } from "@/components/site/site-controls";
 import {
   CapabilitiesGrid,
   DemoPreview,
@@ -310,52 +310,48 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Form Section */}
+        {/* Contact Section */}
         <section id="contact" className="border-t bg-secondary/40 py-28 md:py-36 scroll-reveal">
-          <div className="max-w-[1240px] mx-auto px-6 md:px-10 grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-start">
-            <div>
+          <div className="max-w-[1240px] mx-auto px-6 md:px-10">
+            <div className="rounded-3xl border bg-card p-8 sm:p-14 shadow-xs max-w-4xl mx-auto text-center flex flex-col items-center">
               <h2 id="contact-heading" className="text-4xl sm:text-5xl headline-tight font-medium">
                 Your campus.
                 <br />
                 Your next chapter.
               </h2>
-              <p className="mt-6 text-lg text-muted-foreground max-w-[38ch] leading-relaxed">
-                Have a custom requirement? Send us a message and we will respond directly.
+              <p className="mt-6 text-lg text-muted-foreground max-w-[48ch] leading-relaxed">
+                Have questions or need custom deployment assistance? Get in touch directly.
               </p>
-              <div className="mt-8 space-y-2.5">
-                <div>
-                  <a
-                    href={`mailto:${developerEmail}`}
-                    className="inline-block text-xl font-medium underline underline-offset-4 text-primary hover:opacity-85 transition-opacity"
-                  >
-                    {developerEmail}
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  asChild
+                  variant="night"
+                  size="xl"
+                  className="tactile-btn rounded-xl font-bold"
+                >
+                  <a href={`mailto:${developerEmail}`}>
+                    Email {developerEmail} <ArrowUpRight className="size-4" />
                   </a>
-                </div>
-                <div className="flex flex-wrap items-center gap-4 text-sm pt-1">
-                  <a
-                    href={developerWebsite}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground/90 font-medium hover:text-primary transition-colors"
-                  >
-                    <span>dhyandev.sbs</span>
-                    <ArrowUpRight className="size-3.5" />
+                </Button>
+                <Button asChild variant="outline" size="xl" className="tactile-btn rounded-xl">
+                  <a href={developerWebsite} target="_blank" rel="noreferrer">
+                    Portfolio (dhyandev.sbs) <ArrowUpRight className="size-4" />
                   </a>
-                  <span className="text-muted-foreground/40">•</span>
-                  <a
-                    href={developerBioUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-foreground/90 font-medium hover:text-primary transition-colors"
-                  >
-                    <span>link.dhyandev.sbs</span>
-                    <ArrowUpRight className="size-3.5" />
-                  </a>
-                </div>
+                </Button>
               </div>
-              <p className="text-sm mt-4 text-muted-foreground">Kannur, Kerala, India</p>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-sm mt-8 text-muted-foreground">
+                <a
+                  href={developerBioUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-foreground transition-colors inline-flex items-center gap-1 font-medium"
+                >
+                  link.dhyandev.sbs <ArrowUpRight className="size-3" />
+                </a>
+                <span>•</span>
+                <span>Kannur, Kerala, India</span>
+              </div>
             </div>
-            <ContactForm />
           </div>
         </section>
       </main>
