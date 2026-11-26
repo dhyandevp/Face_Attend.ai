@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import {
   Camera,
@@ -163,6 +164,7 @@ export function CapabilitiesGrid() {
         {activeCap ? (
           <div
             role="region"
+            aria-label="Selected capability specifications"
             aria-live="polite"
             className="rounded-2xl border bg-card px-6 py-5 flex flex-wrap items-center justify-between gap-4 shadow-xs"
           >
@@ -234,15 +236,19 @@ export function DemoPreview() {
 
         <div className="relative">
           <div className="relative rounded-2xl overflow-hidden border soft-shadow bg-night">
-            <img
+            <Image
               src="/assets/faceattend-demo.jpg"
               alt="FaceAttend.AI desktop attendance management dashboard"
+              width={1080}
+              height={1920}
               className="w-full aspect-video object-contain"
               loading="lazy"
             />
             {showOverlay && (
               <>
-                <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-lime to-transparent shadow-[0_0_12px_#a3e635] animate-scanner-bar pointer-events-none" />
+                <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-lime to-transparent shadow-[0_0_12px_var(--lime)]" />
+                </div>
                 <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[11px] text-white font-mono">
                   <span className="size-2 bg-lime rounded-full" />
                   <span>Haar Cascade · LBPH Active</span>
@@ -438,35 +444,64 @@ export function TechExplorer() {
 
         <div>
           <div className="flex flex-wrap gap-2 mb-3" role="tablist" aria-label="Code and output examples">
-            {[
-              { id: "python" as const, label: "Recognition Python" },
-              { id: "csv" as const, label: "Sample CSV Output" },
-              { id: "cli" as const, label: "Quick Start CLI" },
-            ].map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                role="tab"
-                aria-selected={codeTab === t.id}
-                onClick={() => setCodeTab(t.id)}
-                className={`tactile-btn eyebrow px-3 py-1.5 rounded-md border cursor-pointer ${
-                  codeTab === t.id
-                    ? "bg-night text-night-foreground border-night"
-                    : "bg-card text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+            {(
+              [
+                { id: "python", label: "Recognition Python" },
+                { id: "csv", label: "Sample CSV Output" },
+                { id: "cli", label: "Quick Start CLI" },
+              ] as const
+            ).map((t, idx, list) => {
+              const isSelected = codeTab === t.id;
+              return (
+                <button
+                  key={t.id}
+                  id={`tech-tab-${t.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-controls={`tech-panel-${t.id}`}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setCodeTab(t.id)}
+                  onKeyDown={(e) => {
+                    let nextIdx: number | null = null;
+                    if (e.key === "ArrowRight") nextIdx = (idx + 1) % list.length;
+                    else if (e.key === "ArrowLeft") nextIdx = (idx - 1 + list.length) % list.length;
+                    else if (e.key === "Home") nextIdx = 0;
+                    else if (e.key === "End") nextIdx = list.length - 1;
+                    if (nextIdx !== null) {
+                      e.preventDefault();
+                      const nextTab = list[nextIdx];
+                      if (nextTab) {
+                        setCodeTab(nextTab.id);
+                        document.getElementById(`tech-tab-${nextTab.id}`)?.focus();
+                      }
+                    }
+                  }}
+                  className={`tactile-btn eyebrow px-3 py-2 rounded-md border cursor-pointer ${
+                    isSelected
+                      ? "bg-night text-night-foreground border-night"
+                      : "bg-card text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
           </div>
 
-          {codeTab === "python" && (
-            <CopyCode code={recognitionCode} title="Recognition / illustrative Python" />
-          )}
-          {codeTab === "csv" && (
-            <CopyCode code={sampleCsvOutput} title="Attendance_2026-11-26.csv / sample" />
-          )}
-          {codeTab === "cli" && <CopyCode code={installCode} title="Quick start / terminal" />}
+          <div
+            role="tabpanel"
+            id={`tech-panel-${codeTab}`}
+            aria-labelledby={`tech-tab-${codeTab}`}
+          >
+            {codeTab === "python" && (
+              <CopyCode code={recognitionCode} title="Recognition / illustrative Python" />
+            )}
+            {codeTab === "csv" && (
+              <CopyCode code={sampleCsvOutput} title="Attendance_2026-11-26.csv / sample" />
+            )}
+            {codeTab === "cli" && <CopyCode code={installCode} title="Quick start / terminal" />}
+          </div>
 
           <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
             LBPH returns a distance score, not an accuracy percentage. Thresholds should be

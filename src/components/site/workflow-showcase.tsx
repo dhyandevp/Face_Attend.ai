@@ -186,7 +186,7 @@ export function WorkflowShowcase() {
                   offset === 0 ? 0 : absOffset === 1 ? 6 : absOffset === 2 ? 18 : 34;
                 const rotateZ = offset * 2.4;
                 const scale = isActive ? 1 : absOffset === 1 ? 0.88 : absOffset === 2 ? 0.8 : 0.72;
-                const opacity = isActive ? 1 : absOffset === 1 ? 0.34 : absOffset === 2 ? 0.18 : 0.08;
+                const opacity = isActive ? 1 : absOffset === 1 ? 0.72 : absOffset === 2 ? 0.55 : 0.22;
 
                 return (
                   <button
@@ -195,6 +195,7 @@ export function WorkflowShowcase() {
                     onClick={() => selectStage(activeIndex + offset)}
                     aria-current={isActive ? "true" : undefined}
                     aria-label={`${stage.eyebrow}: ${stage.name}`}
+                    aria-hidden={absOffset > 2 ? true : undefined}
                     tabIndex={absOffset <= 2 ? 0 : -1}
                     style={{
                       transform: `translate3d(${translateX}px, ${translateY}px, 0) rotate(${rotateZ}deg) scale(${scale})`,
@@ -233,7 +234,7 @@ export function WorkflowShowcase() {
           {/* Right Column: Active Stage Details + Signature Blue CTA */}
           <div className="relative z-10 flex flex-col items-start justify-center">
             <div className="inline-flex items-center gap-2.5 mb-5">
-              <span className="size-1.5 rounded-full bg-[#2563eb]" aria-hidden="true" />
+              <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
               <span className="eyebrow text-white/80 tracking-[0.1em]">{activeStage.eyebrow}</span>
             </div>
 
@@ -241,7 +242,7 @@ export function WorkflowShowcase() {
               {activeStage.headline}
             </h3>
 
-            <p className="text-white/65 mt-5 text-base sm:text-lg leading-relaxed max-w-[44ch]">
+            <p className="text-white/75 mt-5 text-base sm:text-lg leading-relaxed max-w-[44ch]">
               {activeStage.detail}
             </p>
 
@@ -249,19 +250,19 @@ export function WorkflowShowcase() {
             <button
               type="button"
               onClick={() => setModalOpen(true)}
-              className="tactile-btn mt-8 inline-flex items-center gap-4 rounded-lg bg-[#0284ff] hover:bg-[#1a91ff] text-white text-sm font-medium pl-5 pr-2 py-2 shadow-lg shadow-blue-600/25 cursor-pointer"
+              className="tactile-btn mt-8 inline-flex items-center gap-4 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium pl-5 pr-2 py-2 shadow-lg shadow-primary/25 cursor-pointer"
             >
               <span>Learn more</span>
               <span
                 aria-hidden="true"
-                className="size-8 rounded-md bg-white text-[#0284ff] flex items-center justify-center"
+                className="size-8 rounded-md bg-white text-primary flex items-center justify-center"
               >
                 <ArrowRight className="size-4" />
               </span>
             </button>
 
             {/* Subtle stage step dots for direct random access */}
-            <nav aria-label="Choose a workflow stage" className="flex items-center gap-2 mt-8">
+            <nav aria-label="Choose a workflow stage" className="flex items-center gap-1 mt-6">
               {stages.map((stage, idx) => {
                 const selected = idx === activeIndex;
                 return (
@@ -271,12 +272,16 @@ export function WorkflowShowcase() {
                     onClick={() => selectStage(idx)}
                     aria-label={`Go to stage ${idx + 1}: ${stage.name}`}
                     aria-current={selected ? "true" : undefined}
-                    className={`h-2 rounded-full transition-all duration-200 cursor-pointer relative before:content-[''] before:absolute before:-inset-y-2.5 before:-inset-x-1 ${
-                      selected
-                        ? "w-7 bg-[#0284ff]"
-                        : "w-2 bg-white/25 hover:bg-white/45"
-                    }`}
-                  />
+                    className="min-w-7 min-h-11 flex items-center justify-center cursor-pointer rounded-full group"
+                  >
+                    <span
+                      className={`h-2 rounded-full transition-all duration-200 ${
+                        selected
+                          ? "w-7 bg-primary"
+                          : "w-2 bg-white/35 group-hover:bg-white/60"
+                      }`}
+                    />
+                  </button>
                 );
               })}
             </nav>
@@ -298,7 +303,7 @@ export function WorkflowShowcase() {
               type="button"
               aria-label="Previous workflow stage"
               onClick={() => selectStage(activeIndex - 1)}
-              className="tactile-btn touch-manipulation size-10 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
+              className="tactile-btn touch-manipulation size-11 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
             >
               <ArrowLeft className="size-4" />
             </button>
@@ -306,7 +311,7 @@ export function WorkflowShowcase() {
               type="button"
               aria-label="Next workflow stage"
               onClick={() => selectStage(activeIndex + 1)}
-              className="tactile-btn touch-manipulation size-10 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
+              className="tactile-btn touch-manipulation size-11 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
             >
               <ArrowRight className="size-4" />
             </button>
@@ -318,25 +323,25 @@ export function WorkflowShowcase() {
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="max-w-2xl bg-night text-night-foreground border-white/15">
           <div className="inline-flex items-center gap-2 mb-1">
-            <span className="size-2 rounded-full bg-[#0284ff]" />
+            <span className="size-2 rounded-full bg-primary" />
             <span className="eyebrow text-sky">{activeStage.eyebrow}</span>
           </div>
           <DialogTitle className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
             {activeStage.name}: {activeStage.headline}
           </DialogTitle>
-          <DialogDescription className="text-white/75 text-base leading-relaxed">
+          <DialogDescription className="text-white/80 text-base leading-relaxed">
             {activeStage.detail}
           </DialogDescription>
 
           <div className="grid sm:grid-cols-2 gap-3 my-2">
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-              <p className="eyebrow text-white/55 flex items-center gap-1.5 mb-2">
+              <p className="eyebrow text-white/75 flex items-center gap-1.5 mb-2">
                 <Cpu className="size-3.5 text-sky" /> Input
               </p>
-              <p className="text-sm text-white/90">{activeStage.inputArtifact}</p>
+              <p className="text-sm text-white/95">{activeStage.inputArtifact}</p>
             </div>
             <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-              <p className="eyebrow text-white/55 flex items-center gap-1.5 mb-2">
+              <p className="eyebrow text-white/75 flex items-center gap-1.5 mb-2">
                 <FileOutput className="size-3.5 text-lime" /> Output
               </p>
               <p className="text-sm font-mono text-lime">{activeStage.outputArtifact}</p>
@@ -345,10 +350,10 @@ export function WorkflowShowcase() {
 
           <div className="rounded-xl bg-black/50 border border-white/10 overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
-              <span className="eyebrow text-white/60 flex items-center gap-1.5">
+              <span className="eyebrow text-white/75 flex items-center gap-1.5">
                 <Code2 className="size-3.5 text-sky" /> Pipeline implementation
               </span>
-              <span className="text-[11px] font-mono text-white/45">Python · OpenCV</span>
+              <span className="text-[11px] font-mono text-white/75">Python · OpenCV</span>
             </div>
             <pre className="p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed text-sky-100 font-mono">
               <code>{activeStage.snippet}</code>
@@ -356,7 +361,7 @@ export function WorkflowShowcase() {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-            <span className="inline-flex items-center gap-1.5 text-xs text-white/60">
+            <span className="inline-flex items-center gap-1.5 text-xs text-white/80">
               <CheckCircle2 className="size-3.5 text-lime" /> Verified in core desktop workflow
             </span>
             <div className="flex items-center gap-2">
@@ -370,7 +375,7 @@ export function WorkflowShowcase() {
               <a
                 href="#technology"
                 onClick={() => setModalOpen(false)}
-                className="tactile-btn rounded-lg bg-[#0284ff] hover:bg-[#1a91ff] px-3.5 py-2 text-xs font-medium text-white"
+                className="tactile-btn rounded-lg bg-primary hover:bg-primary/90 px-3.5 py-2 text-xs font-medium text-primary-foreground"
               >
                 View full architecture
               </a>

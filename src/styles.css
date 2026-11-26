@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --font-sans: var(--font-hanken), "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -66,6 +64,7 @@
   --lemon: #fde047;
   --sky: #38bdf8;
   --tile-foreground: #0f172a;
+  --success: #16a34a;
   --shadow-soft: 0 24px 60px -32px rgba(8, 13, 40, 0.25);
 }
 
@@ -194,8 +193,7 @@
 .hero-motion-paused .star-sparkle,
 .hero-motion-paused .shooting-star,
 .hero-motion-paused .animate-float,
-.hero-motion-paused .animate-scanner-bar,
-.hero-motion-paused .animate-bounce-subtle {
+.hero-motion-paused .animate-scanner-bar {
   animation-play-state: paused !important;
 }
 
@@ -292,7 +290,7 @@
 }
 
 .field-control:is(:user-valid, .user-valid-fallback) {
-  border-color: #16a34a;
+  border-color: var(--success);
 }
 
 .field-error-msg {
@@ -331,7 +329,7 @@
     .scroll-reveal {
       animation: scroll-reveal-up linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 28%;
+      animation-range: entry 0% entry 14%;
     }
   }
 }
@@ -361,7 +359,6 @@
   50% {
     opacity: 1;
     transform: scale(1.25);
-    filter: drop-shadow(0 0 5px #ffffff);
   }
 }
 
@@ -374,7 +371,6 @@
   50% {
     opacity: 1;
     transform: rotate(180deg) scale(1.15);
-    filter: drop-shadow(0 0 8px #93c5fd);
   }
 }
 
@@ -388,26 +384,16 @@
   }
 }
 
-@keyframes bounce-subtle {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-
 @keyframes scanner-bar {
   0% {
-    top: 4%;
+    transform: translateY(4%);
     opacity: 0.75;
   }
   50% {
     opacity: 1;
   }
   100% {
-    top: 94%;
+    transform: translateY(94%);
     opacity: 0.75;
   }
 }
@@ -448,10 +434,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .animate-float {
     animation: float 4.5s ease-in-out infinite;
-  }
-
-  .animate-bounce-subtle {
-    animation: bounce-subtle 2.2s ease-in-out infinite;
   }
 
   .animate-scanner-bar {

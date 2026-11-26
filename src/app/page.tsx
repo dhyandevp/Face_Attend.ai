@@ -58,11 +58,11 @@ export default function Home() {
               <h1 className="text-[48px] sm:text-[84px] lg:text-[108px] display-tight font-medium text-white drop-shadow-sm">
                 FaceAttend<span className="text-lime">.AI</span>
               </h1>
-              <h2 className="text-[28px] sm:text-[44px] lg:text-[54px] headline-tight max-w-[680px] mt-6 font-normal text-white/95">
+              <p className="text-[28px] sm:text-[44px] lg:text-[54px] headline-tight max-w-[680px] mt-6 font-normal text-white/95">
                 Attendance automation.
                 <br />
                 Powered by intelligence.
-              </h2>
+              </p>
             </div>
 
             <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:items-end mt-14 lg:mt-20">
@@ -112,7 +112,7 @@ export default function Home() {
           <a
             href="#overview"
             aria-label="Explore overview"
-            className="absolute bottom-7 left-1/2 -translate-x-1/2 text-night/80 hover:text-night transition-colors animate-bounce-subtle z-20 p-2 rounded-full"
+            className="absolute bottom-7 left-6 sm:left-1/2 sm:-translate-x-1/2 text-night/80 hover:text-night hover:translate-y-0.5 transition-all z-20 size-11 inline-flex items-center justify-center rounded-full"
           >
             <ArrowDown className="size-5" />
           </a>
@@ -122,7 +122,7 @@ export default function Home() {
         <section
           id="overview"
           tabIndex={-1}
-          className="max-w-[1240px] mx-auto px-6 md:px-10 py-28 md:py-36 scroll-reveal focus:outline-none"
+          className="max-w-[1240px] mx-auto px-6 md:px-10 py-28 md:py-36 scroll-reveal"
         >
           <div className="grid md:grid-cols-2 gap-10 md:gap-24 items-start">
             <div>
@@ -236,9 +236,14 @@ export default function Home() {
                     </li>
                   ))}
                   {edition.unavailable.map((feature) => (
-                    <li key={feature} className="opacity-50 flex items-start gap-2.5">
+                    <li
+                      key={feature}
+                      className={`flex items-start gap-2.5 ${
+                        i === 1 ? "text-tile-foreground/80" : "text-muted-foreground"
+                      }`}
+                    >
                       <X className="size-4 shrink-0 mt-0.5" aria-hidden="true" />
-                      <span>{feature}</span>
+                      <span className="line-through decoration-current/45">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -371,7 +376,7 @@ export default function Home() {
                 ))}
               </nav>
               <div>
-                <p className="eyebrow text-night-foreground/55 mb-5">Get in touch</p>
+                <p className="eyebrow text-night-foreground/75 mb-5">Get in touch</p>
                 <a
                   className="text-sm underline underline-offset-4 break-all hover:text-white"
                   href="mailto:faceattentai@gmail.com"
@@ -392,7 +397,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="max-w-[1160px] mx-auto border-t border-night-foreground/15 mt-14 pt-6 flex flex-wrap justify-between gap-5 text-xs text-night-foreground/65">
+          <div className="max-w-[1160px] mx-auto border-t border-night-foreground/15 mt-14 pt-6 flex flex-wrap justify-between gap-5 text-xs text-night-foreground/80">
             <span>© 2026 Dhyandev. Open Source MIT License.</span>
             <div className="flex gap-6">
               <Link href="/privacy" className="underline underline-offset-4 hover:text-white">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import {
   AlertCircle,
@@ -93,7 +94,7 @@ export function Navigation() {
             aria-expanded={open}
             aria-controls={menuId}
             onClick={() => setOpen(!open)}
-            className="lg:hidden shrink-0 rounded-full"
+            className="lg:hidden shrink-0 rounded-full size-11"
           >
             {open ? <X /> : <Menu />}
           </Button>
@@ -187,13 +188,17 @@ export function HeroWalkthroughCard() {
           className="tactile-btn text-left flex items-center gap-4 bg-white/10 hover:bg-white/18 backdrop-blur-xl border border-white/20 p-3.5 pr-6 rounded-2xl soft-shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 group cursor-pointer"
         >
           <div className="relative size-16 rounded-xl overflow-hidden shrink-0 bg-night border border-white/20">
-            <img
+            <Image
               src="/assets/faceattend-demo.jpg"
               alt=""
+              width={1080}
+              height={1920}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors" />
-            <div className="absolute inset-x-0 h-0.5 bg-lime shadow-[0_0_8px_#a3e635] animate-scanner-bar" />
+            <div className="absolute inset-0 pointer-events-none animate-scanner-bar">
+              <div className="absolute inset-x-0 top-0 h-0.5 bg-lime shadow-[0_0_8px_var(--lime)]" />
+            </div>
           </div>
           <div>
             <p className="text-[14px] font-medium text-white leading-tight">
@@ -291,7 +296,7 @@ export function CopyCode({ code, title }: { code: string; title: string }) {
           size="icon"
           aria-label={`Copy ${title}`}
           title={`Copy ${title}`}
-          className="tactile-btn"
+          className="tactile-btn size-11"
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(code);
