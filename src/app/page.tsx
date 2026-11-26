@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Check, Github, X } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Check,
+  ExternalLink,
+  Github,
+  Globe,
+  Mail,
+  MapPin,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Brand, CopyCode, Demo, Navigation } from "@/components/site/site-controls";
 import {
@@ -311,45 +321,94 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="border-t bg-secondary/40 py-28 md:py-36 scroll-reveal">
+        <section
+          id="contact"
+          aria-labelledby="contact-heading"
+          className="border-t bg-background py-24 md:py-32 scroll-reveal"
+        >
           <div className="max-w-[1240px] mx-auto px-6 md:px-10">
-            <div className="rounded-3xl border bg-card p-8 sm:p-14 shadow-xs max-w-4xl mx-auto text-center flex flex-col items-center">
-              <h2 id="contact-heading" className="text-4xl sm:text-5xl headline-tight font-medium">
-                Your campus.
-                <br />
-                Your next chapter.
-              </h2>
-              <p className="mt-6 text-lg text-muted-foreground max-w-[48ch] leading-relaxed">
-                Have questions or need custom deployment assistance? Get in touch directly.
+            <div className="text-center max-w-2xl mx-auto">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-3">
+                Contact
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button
-                  asChild
-                  variant="night"
-                  size="xl"
-                  className="tactile-btn rounded-xl font-bold"
-                >
-                  <a href={`mailto:${developerEmail}`}>
-                    Email {developerEmail} <ArrowUpRight className="size-4" />
+              <h2
+                id="contact-heading"
+                className="text-4xl sm:text-5xl headline-tight font-semibold text-foreground"
+              >
+                Your campus. Your next chapter.
+              </h2>
+              <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-[54ch] mx-auto leading-relaxed">
+                Questions about setting up FaceAttend.AI, campus deployments, or custom integration
+                inquiries—write anytime.
+              </p>
+            </div>
+
+            <div className="mt-10 sm:mt-12 max-w-[780px] mx-auto rounded-3xl border border-blue-200/80 bg-gradient-to-br from-[#eaf2ff] via-[#eef5ff] to-[#e1ecff] p-7 sm:p-10 shadow-[0_24px_60px_-28px_rgba(37,99,235,0.22)]">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <h3 className="font-display text-2xl sm:text-[30px] font-semibold tracking-tight text-foreground">
+                  FaceAttend<span className="text-primary">.AI</span>
+                </h3>
+
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <a
+                    href={`mailto:${developerEmail}`}
+                    className="tactile-btn inline-flex items-center gap-2 rounded-full bg-night hover:bg-night/90 text-night-foreground px-5 h-10 text-sm font-semibold shadow-sm"
+                  >
+                    <Mail className="size-4" aria-hidden="true" />
+                    <span>Email developer</span>
                   </a>
-                </Button>
-                <Button asChild variant="outline" size="xl" className="tactile-btn rounded-xl">
-                  <a href={developerWebsite} target="_blank" rel="noreferrer">
-                    Portfolio (dhyandev.sbs) <ArrowUpRight className="size-4" />
+                  <a
+                    href={developerWebsite}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="tactile-btn inline-flex items-center gap-2 rounded-full bg-white hover:bg-white/95 text-foreground border border-blue-200/80 px-5 h-10 text-sm font-semibold shadow-xs"
+                  >
+                    <Globe className="size-4 text-foreground/80" aria-hidden="true" />
+                    <span>Website</span>
+                    <ExternalLink className="size-3.5 text-muted-foreground" aria-hidden="true" />
                   </a>
-                </Button>
+                </div>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-4 text-sm mt-8 text-muted-foreground">
+
+              <p className="mt-4 text-[15px] sm:text-base text-foreground/75 leading-relaxed max-w-[64ch]">
+                Built by AI &amp; Computer Vision Engineer Dhyandev in Kannur, Kerala. We welcome
+                campus pilot inquiries, Python contributors, and custom integration requests.
+              </p>
+
+              <div className="my-6 sm:my-7 h-px bg-blue-950/10" />
+
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <a
+                  href={`mailto:${developerEmail}`}
+                  className="group rounded-2xl bg-white/95 hover:bg-white border border-blue-100/90 hover:border-blue-300/80 px-5 py-4 shadow-xs transition-all duration-200 hover:-translate-y-0.5 block"
+                >
+                  <span className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-muted-foreground">
+                    <Mail className="size-3.5 text-primary" aria-hidden="true" />
+                    Developer email
+                  </span>
+                  <span className="mt-1.5 block text-[15px] font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {developerEmail}
+                  </span>
+                </a>
+
                 <a
                   href={developerBioUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-foreground transition-colors inline-flex items-center gap-1 font-medium"
+                  className="group rounded-2xl bg-white/95 hover:bg-white border border-blue-100/90 hover:border-blue-300/80 px-5 py-4 shadow-xs transition-all duration-200 hover:-translate-y-0.5 block"
                 >
-                  link.dhyandev.sbs <ArrowUpRight className="size-3" />
+                  <span className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-muted-foreground">
+                    <Globe className="size-3.5 text-primary" aria-hidden="true" />
+                    Developer links
+                  </span>
+                  <span className="mt-1.5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <span>link.dhyandev.sbs</span>
+                    <ExternalLink
+                      className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors"
+                      aria-hidden="true"
+                    />
+                  </span>
                 </a>
-                <span>•</span>
-                <span>Kannur, Kerala, India</span>
               </div>
             </div>
           </div>
@@ -395,61 +454,85 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-8">
-              <nav aria-label="Footer product links" className="grid gap-3 text-lg sm:text-xl">
-                {["Overview", "Features", "Workflow", "Technology"].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-white/85 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </a>
-                ))}
-              </nav>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
               <div>
-                <h3 className="text-sm font-semibold tracking-wide uppercase text-night-foreground/70 mb-5">
-                  Get in touch
+                <h3 className="text-xs font-semibold tracking-wider uppercase text-night-foreground/70 mb-5">
+                  Navigation
                 </h3>
-                <a
-                  className="text-sm font-medium underline underline-offset-4 break-all hover:text-white"
-                  href={`mailto:${developerEmail}`}
-                >
-                  {developerEmail}
-                </a>
-                <div className="mt-3 space-y-1.5 text-sm text-night-foreground/80">
-                  <div>
-                    <a
-                      href={developerWebsite}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 hover:text-white transition-colors"
-                    >
-                      dhyandev.sbs <ArrowUpRight className="size-3.5" />
-                    </a>
-                  </div>
-                  <div>
-                    <a
-                      href={developerBioUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 hover:text-white transition-colors"
-                    >
-                      link.dhyandev.sbs <ArrowUpRight className="size-3.5" />
-                    </a>
+                <nav aria-label="Footer product links" className="space-y-2.5 text-base sm:text-lg">
+                  {["Overview", "Features", "Workflow", "Technology", "Use Cases", "Pricing"].map(
+                    (item) => (
+                      <div key={item}>
+                        <a
+                          href={`#${item.toLowerCase().replace(" ", "-")}`}
+                          className="text-white/80 hover:text-white transition-colors"
+                        >
+                          {item}
+                        </a>
+                      </div>
+                    ),
+                  )}
+                </nav>
+              </div>
+              <div className="flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xs font-semibold tracking-wider uppercase text-night-foreground/70 mb-5">
+                    Get in touch
+                  </h3>
+                  <div className="space-y-3.5 text-sm">
+                    <div>
+                      <a
+                        href={`mailto:${developerEmail}`}
+                        className="inline-flex items-center gap-2.5 text-white/90 hover:text-white transition-colors group"
+                      >
+                        <Mail className="size-4 text-sky-400 shrink-0" aria-hidden="true" />
+                        <span className="font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white">
+                          {developerEmail}
+                        </span>
+                      </a>
+                    </div>
+                    <div>
+                      <a
+                        href={developerWebsite}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2.5 text-night-foreground/85 hover:text-white transition-colors"
+                      >
+                        <Globe className="size-4 text-sky-400 shrink-0" aria-hidden="true" />
+                        <span>dhyandev.sbs</span>
+                        <ArrowUpRight
+                          className="size-3.5 text-night-foreground/60"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </div>
+                    <div>
+                      <a
+                        href={developerBioUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2.5 text-night-foreground/85 hover:text-white transition-colors"
+                      >
+                        <ArrowUpRight className="size-4 text-sky-400 shrink-0" aria-hidden="true" />
+                        <span>link.dhyandev.sbs</span>
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-night-foreground/70 pt-1">
+                      <MapPin className="size-4 text-sky-400/80 shrink-0" aria-hidden="true" />
+                      <span>Kannur, Kerala, India</span>
+                    </div>
                   </div>
                 </div>
-                <p className="text-sm mt-4 text-night-foreground/70">
-                  Kannur, Kerala
-                  <br />
-                  India
-                </p>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 mt-6 text-white/90 hover:text-white transition-colors"
-                >
-                  Let's talk <ArrowUpRight className="size-4" />
-                </a>
+
+                <div className="pt-6">
+                  <a
+                    href={`mailto:${developerEmail}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-white transition-colors"
+                  >
+                    <span>Let's talk</span>
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
