@@ -45,7 +45,7 @@ export default function Home() {
       <main id="top">
         {/* Hero Section */}
         <HeroCanvas>
-          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-36 sm:pt-44 lg:pt-48 pb-24 sm:pb-28 z-10 flex-1 flex flex-col justify-between">
+          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-36 sm:pt-40 lg:pt-44 pb-36 sm:pb-44 z-10 flex-1 flex flex-col justify-between">
             <div className="max-w-[820px]">
               <h1 className="rise-in text-[48px] sm:text-[84px] lg:text-[108px] display-tight font-bold text-white drop-shadow-sm">
                 FaceAttend<span className="text-sky-300">.AI</span>
