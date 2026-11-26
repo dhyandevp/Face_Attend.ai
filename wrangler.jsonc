@@ -1,0 +1,32 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "faceattend-ai",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-11-26",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"routes": [
+		{ "pattern": "faceattend-ai.dhyandev.sbs", "custom_domain": true }
+	],
+	"workers_dev": true,
+	"observability": {
+		"enabled": true
+	},
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name
+			// see https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "faceattend-ai"
+		}
+	],
+	"vars": {
+		"NEXT_PUBLIC_SITE_URL": "https://faceattend-ai.dhyandev.sbs"
+	}
+}
