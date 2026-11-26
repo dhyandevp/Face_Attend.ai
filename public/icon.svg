@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#060b22" />
+      <stop offset="55%" stop-color="#0e225c" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.28" cy="0.24" r="0.72">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#bg)" />
+  <rect width="32" height="32" rx="8" fill="url(#glow)" />
+  <rect
+    x="0.5"
+    y="0.5"
+    width="31"
+    height="31"
+    rx="7.5"
+    stroke="#7dd3fc"
+    stroke-opacity="0.24"
+  />
+  <!-- Scanner corner brackets -->
+  <path
+    d="M7 11.2V8.6C7 7.72 7.72 7 8.6 7H11.2M20.8 7H23.4C24.28 7 25 7.72 25 8.6V11.2M25 20.8V23.4C25 24.28 24.28 25 23.4 25H20.8M11.2 25H8.6C7.72 25 7 24.28 7 23.4V20.8"
+    stroke="#38bdf8"
+    stroke-width="2.3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Biometric face mark -->
+  <circle cx="12.8" cy="13.8" r="1.45" fill="#ffffff" />
+  <circle cx="19.2" cy="13.8" r="1.45" fill="#ffffff" />
+  <path
+    d="M12.4 18.8C13.45 20.25 14.65 20.9 16 20.9C17.35 20.9 18.55 20.25 19.6 18.8"
+    stroke="#ffffff"
+    stroke-width="2.1"
+    stroke-linecap="round"
+  />
+</svg>
