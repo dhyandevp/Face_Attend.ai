@@ -39,7 +39,7 @@ export function HeroCanvas({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={() => setPaused((prev) => !prev)}
-        className="tactile-btn absolute bottom-7 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-foreground backdrop-blur-md border border-border/80 px-4 py-2 text-sm font-medium shadow-xs cursor-pointer"
+        className="tactile-btn absolute bottom-6 right-6 md:right-10 z-20 inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-foreground backdrop-blur-md border border-border/80 px-4 py-2 text-sm font-medium shadow-xs cursor-pointer"
       >
         {paused ? <Play className="size-3.5" /> : <Pause className="size-3.5" />}
         <span>{paused ? "Resume motion" : "Pause motion"}</span>

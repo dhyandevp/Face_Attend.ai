@@ -57,7 +57,7 @@ const sparkles = [
 export function HeroStarfield() {
   return (
     <div
-      className="absolute inset-0 overflow-hidden pointer-events-none select-none"
+      className="hero-starfield-mask absolute inset-0 overflow-hidden pointer-events-none select-none"
       aria-hidden="true"
     >
       {/* Living Aurora / Nebula Glow layer */}

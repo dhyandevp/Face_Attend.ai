@@ -45,7 +45,7 @@ export default function Home() {
       <main id="top">
         {/* Hero Section */}
         <HeroCanvas>
-          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-36 sm:pt-40 lg:pt-44 pb-36 sm:pb-44 z-10 flex-1 flex flex-col justify-between">
+          <div className="relative max-w-[1240px] w-full mx-auto px-6 md:px-10 pt-32 sm:pt-36 lg:pt-40 pb-40 sm:pb-48 z-10 flex-1 flex flex-col justify-between">
             <div className="max-w-[820px]">
               <h1 className="rise-in text-[48px] sm:text-[84px] lg:text-[108px] display-tight font-bold text-white drop-shadow-sm">
                 FaceAttend<span className="text-sky-300">.AI</span>
@@ -61,7 +61,7 @@ export default function Home() {
             </div>
 
             <div
-              className="rise-in mt-14 lg:mt-20 max-w-[680px]"
+              className="rise-in mt-12 lg:mt-16 max-w-[680px]"
               style={{ animationDelay: "180ms" }}
             >
               <p className="max-w-[46ch] text-base sm:text-lg leading-relaxed text-white/85">
@@ -88,7 +88,7 @@ export default function Home() {
           <a
             href="#overview"
             aria-label="Explore overview"
-            className="absolute bottom-7 left-6 sm:left-1/2 sm:-translate-x-1/2 text-night/80 hover:text-night hover:translate-y-0.5 transition-all z-20 size-11 inline-flex items-center justify-center rounded-full"
+            className="absolute bottom-6 left-6 sm:left-1/2 sm:-translate-x-1/2 text-night/80 hover:text-night hover:translate-y-0.5 transition-all z-20 size-11 inline-flex items-center justify-center rounded-full"
           >
             <ArrowDown className="size-5" />
           </a>
@@ -98,7 +98,7 @@ export default function Home() {
         <section
           id="overview"
           tabIndex={-1}
-          className="max-w-[1240px] mx-auto px-6 md:px-10 py-28 md:py-36 scroll-reveal"
+          className="relative z-10 max-w-[1240px] mx-auto px-6 md:px-10 pt-4 sm:pt-6 md:pt-8 pb-28 md:pb-36 scroll-reveal"
         >
           <div className="grid md:grid-cols-2 gap-10 md:gap-24 items-start">
             <div>
