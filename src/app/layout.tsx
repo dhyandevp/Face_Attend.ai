@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/styles.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -108,6 +109,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-dvh bg-background text-foreground antialiased selection:bg-primary/15 selection:text-foreground">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
