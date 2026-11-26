@@ -563,4 +563,17 @@
     animation: shooting-star 15s ease-in-out infinite;
     animation-delay: 3s;
   }
+
+  .workflow-dot-progress {
+    animation: workflow-progress 4.5s linear forwards;
+  }
+}
+
+@keyframes workflow-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }

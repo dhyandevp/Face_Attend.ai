@@ -15,11 +15,11 @@ describe("App routes and interactions", () => {
 
   it("cycles workflow stages in the orbital showcase", () => {
     render(<Home />);
-    expect(screen.getByText(/Stage 4 of 6/i)).toBeInTheDocument();
+    expect(screen.getByText(/Stage 1 of 6/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /Next workflow stage/i }));
-    expect(screen.getByText(/Stage 5 of 6/i)).toBeInTheDocument();
+    expect(screen.getByText(/Stage 2 of 6/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 3, name: /Build clean daily CSV attendance logs/i }),
+      screen.getByRole("heading", { level: 3, name: /Turn captured frames into local recognition/i }),
     ).toBeInTheDocument();
   });
 

@@ -151,11 +151,11 @@ export function WorkflowShowcase() {
   const companionFadeId = `${uid}-companion-fade`;
   const activeArcId = `${uid}-active-arc`;
 
-  const [virtualIndex, setVirtualIndex] = useState(3); // Starts at "Recognize" (Stage 4 of 6)
+  const [virtualIndex, setVirtualIndex] = useState(0); // Starts at "Register" (Stage 1 of 6)
   const [statusMessage, setStatusMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [autoPlay, setAutoPlay] = useState(true);
-  const [isInteracting, setIsInteracting] = useState(false);
+  const [userPausedUntil, setUserPausedUntil] = useState(0);
 
   const count = stages.length;
   const activeIndex = ((virtualIndex % count) + count) % count;
@@ -168,8 +168,12 @@ export function WorkflowShowcase() {
     }
   };
 
-  const stepBy = (delta: number) => {
+  const stepBy = (delta: number, isManual = false) => {
     if (delta === 0) return;
+    if (isManual) {
+      // Temporarily pause auto-advance for 6 seconds when user manually clicks/navigates
+      setUserPausedUntil(Date.now() + 6000);
+    }
     setVirtualIndex((prev) => {
       const next = prev + delta;
       announceStage(((next % count) + count) % count);
@@ -183,32 +187,29 @@ export function WorkflowShowcase() {
     let delta = normalizedTarget - activeIndex;
     if (delta > count / 2) delta -= count;
     if (delta <= -count / 2) delta += count;
-    stepBy(delta);
+    stepBy(delta, true);
   };
 
   useEffect(() => {
-    if (!autoPlay || isInteracting || modalOpen) return;
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
+    if (!autoPlay || modalOpen) return;
 
     const timer = window.setInterval(() => {
-      setVirtualIndex((prev) => prev + 1);
-    }, 4800);
+      if (Date.now() < userPausedUntil) {
+        return;
+      }
+      stepBy(1, false);
+    }, 4500);
 
     return () => window.clearInterval(timer);
-  }, [autoPlay, isInteracting, modalOpen]);
+  }, [autoPlay, modalOpen, userPausedUntil]);
 
   const handleWheelKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
       e.preventDefault();
-      stepBy(-1);
+      stepBy(-1, true);
     } else if (e.key === "ArrowDown" || e.key === "ArrowRight") {
       e.preventDefault();
-      stepBy(1);
+      stepBy(1, true);
     } else if (e.key === "Home") {
       e.preventDefault();
       selectStage(0);
@@ -244,14 +245,6 @@ export function WorkflowShowcase() {
           role="region"
           aria-roledescription="carousel"
           aria-label="FaceAttend.AI pipeline stages"
-          onMouseEnter={() => setIsInteracting(true)}
-          onMouseLeave={() => setIsInteracting(false)}
-          onFocusCapture={() => setIsInteracting(true)}
-          onBlurCapture={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget)) {
-              setIsInteracting(false);
-            }
-          }}
           className="orbital-card relative rounded-3xl border border-white/10 shadow-[0_32px_80px_-24px_rgba(8,13,42,0.55)] px-6 sm:px-12 lg:px-20 py-10 md:py-16 min-h-[480px] md:min-h-[540px] grid md:grid-cols-[0.95fr_1.05fr] gap-8 md:gap-10 lg:gap-16 items-center overflow-hidden"
         >
           {/* Left Column: Unified Orbital Arc Dial */}
@@ -406,7 +399,7 @@ export function WorkflowShowcase() {
                   <button
                     key={`slot-${slotKey}`}
                     type="button"
-                    onClick={() => stepBy(offset)}
+                    onClick={() => stepBy(offset, true)}
                     aria-current={isActive ? "true" : undefined}
                     aria-label={`${stage.eyebrow}: ${stage.name}`}
                     aria-hidden={absOffset > 2 ? true : undefined}
@@ -500,10 +493,21 @@ export function WorkflowShowcase() {
                     className="min-w-7 min-h-11 flex items-center justify-center cursor-pointer rounded-full group"
                   >
                     <span
-                      className={`h-2 rounded-full transition-all duration-300 ease-out ${
-                        selected ? "w-8 bg-sky-400" : "w-2 bg-white/35 group-hover:bg-white/65"
+                      className={`h-2 rounded-full transition-all duration-300 ease-out overflow-hidden relative ${
+                        selected
+                          ? "w-8 bg-sky-950/70 border border-sky-400/50"
+                          : "w-2 bg-white/35 group-hover:bg-white/65"
                       }`}
-                    />
+                    >
+                      {selected && (
+                        <span
+                          key={`prog-${virtualIndex}`}
+                          className={`absolute inset-0 bg-sky-400 rounded-full origin-left ${
+                            autoPlay && !modalOpen ? "workflow-dot-progress" : "w-full"
+                          }`}
+                        />
+                      )}
+                    </span>
                   </button>
                 );
               })}
@@ -538,7 +542,7 @@ export function WorkflowShowcase() {
             <button
               type="button"
               aria-label="Previous workflow stage"
-              onClick={() => stepBy(-1)}
+              onClick={() => stepBy(-1, true)}
               className="tactile-btn touch-manipulation size-11 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
             >
               <ArrowLeft className="size-4" />
@@ -546,7 +550,7 @@ export function WorkflowShowcase() {
             <button
               type="button"
               aria-label="Next workflow stage"
-              onClick={() => stepBy(1)}
+              onClick={() => stepBy(1, true)}
               className="tactile-btn touch-manipulation size-11 rounded-lg border border-border bg-card hover:bg-secondary text-foreground flex items-center justify-center shadow-xs cursor-pointer"
             >
               <ArrowRight className="size-4" />

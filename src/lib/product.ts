@@ -19,8 +19,8 @@ export const editions = [
   {
     name: "Pro License",
     price: 4999,
-    period: "year",
-    description: "For your next active deployment.",
+    period: "month",
+    description: "For custom builds and active deployment.",
     features: [
       "Everything in Open Source",
       "SMS & email alerts · planned",

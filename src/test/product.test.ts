@@ -17,9 +17,9 @@ describe("Product rules", () => {
     expect(editions[0]?.price).toBe(0);
     expect(editions[0]?.period).toBe("forever");
   });
-  it("prices Pro at 4999 rupees per year", () => {
+  it("prices Pro at 4999 rupees per month", () => {
     expect(editions[1]?.price).toBe(4999);
-    expect(editions[1]?.period).toBe("year");
+    expect(editions[1]?.period).toBe("month");
   });
   it("keeps enterprise custom priced", () => expect(editions[2]?.price).toBeNull());
   it("does not fabricate benchmarks", () => {

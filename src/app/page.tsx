@@ -240,11 +240,18 @@ export default function Home() {
                     </Button>
                   ) : i === 1 ? (
                     <>
-                      <Button disabled variant="hero" size="xl" className="w-full rounded-xl">
-                        Buy Pro License <ArrowUpRight />
+                      <Button
+                        asChild
+                        variant="hero"
+                        size="xl"
+                        className="tactile-btn w-full rounded-xl"
+                      >
+                        <a href="#contact">
+                          Contact for Custom Build <ArrowUpRight />
+                        </a>
                       </Button>
                       <p className="text-sm mt-3 text-center text-white/70">
-                        Planned edition · checkout not available
+                        Contact for custom build &amp; more details
                       </p>
                     </>
                   ) : (
