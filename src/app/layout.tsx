@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://faceattend.ai";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://faceattend-ai.dhyandev.sbs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

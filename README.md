@@ -57,6 +57,51 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `pnpm db:generate`: Generate Drizzle migrations
 - `pnpm db:push`: Push schema changes to database
 - `pnpm migrate:data`: Migrate historical submissions from legacy export
+- `pnpm preview`: Build and preview the Cloudflare Worker locally with Wrangler
+- `pnpm deploy`: Build and deploy the application to Cloudflare Workers
+- `pnpm cf-typegen`: Generate Cloudflare binding types
+
+## Deployment (Cloudflare Workers)
+
+This project is deployed to **Cloudflare Workers** using `@opennextjs/cloudflare`.
+
+- **Project Slug:** `faceattend-ai`
+- **Live URL:** [https://faceattend-ai.dhyandev.sbs](https://faceattend-ai.dhyandev.sbs)
+
+### Deployment Commands
+
+```bash
+# Run local development with Cloudflare bindings
+pnpm dev
+
+# Build and preview locally with Wrangler
+pnpm preview
+
+# Build and deploy to Cloudflare Workers
+pnpm deploy
+```
+
+### Environment Variables & Secrets
+
+- `NEXT_PUBLIC_SITE_URL`: Set to `https://faceattend-ai.dhyandev.sbs` in `wrangler.jsonc` (`vars`).
+- Local variables can be configured in `.dev.vars` (see `.dev.vars.example`).
+- Secrets (if needed in the future) can be added via:
+  ```bash
+  npx wrangler secret put <SECRET_NAME>
+  ```
+
+### Bindings & Architecture
+
+- **Worker Name:** `faceattend-ai`
+- **Static Assets:** Static assets and chunks served via Cloudflare Workers Static Assets (`ASSETS` binding).
+- **Custom Domain:** `faceattend-ai.dhyandev.sbs` (`custom_domain: true` route).
+- **Worker Self Reference:** `WORKER_SELF_REFERENCE` binding to handle internal ISR revalidation.
+
+### Rollback Plan
+
+The existing Vercel deployment and DNS configurations remain untouched as a fail-safe:
+1. If an immediate rollback is needed, remove the custom domain trigger in `wrangler.jsonc` or Cloudflare Dashboard under **Workers & Pages -> faceattend-ai -> Settings -> Triggers / Custom Domains**.
+2. Re-point the DNS record for `faceattend-ai.dhyandev.sbs` or your domain back to Vercel (`cname.vercel-dns.com`).
 
 ## License & Contact
 

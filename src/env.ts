@@ -10,7 +10,7 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   },
   client: {
-    NEXT_PUBLIC_SITE_URL: z.string().url().default("https://faceattend.ai"),
+    NEXT_PUBLIC_SITE_URL: z.string().url().default("https://faceattend-ai.dhyandev.sbs"),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
