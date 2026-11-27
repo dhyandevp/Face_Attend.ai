@@ -1,7 +1,7 @@
 export const repoUrl = "https://github.com/dhyandevp/FaceAttend.ai";
 export const developerEmail = "dhyandevp@proton.me";
 export const developerWebsite = "https://dhyandev.sbs";
-export const developerBioUrl = "https://link.dhyandev.sbs";
+export const developerBioUrl = "https://links.dhyandev.sbs";
 export const developerGithub = "https://github.com/dhyandevp";
 export const benchmarks: { accuracy: number | null; speed: number | null } = {
   accuracy: null,

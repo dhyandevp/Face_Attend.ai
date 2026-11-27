@@ -11,7 +11,7 @@ describe("Product rules", () => {
   it("exports developer contact and bio links", () => {
     expect(developerEmail).toBe("dhyandevp@proton.me");
     expect(developerWebsite).toBe("https://dhyandev.sbs");
-    expect(developerBioUrl).toBe("https://link.dhyandev.sbs");
+    expect(developerBioUrl).toBe("https://links.dhyandev.sbs");
   });
   it("offers open source at zero forever", () => {
     expect(editions[0]?.price).toBe(0);

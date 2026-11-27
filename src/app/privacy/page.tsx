@@ -71,7 +71,7 @@ export default function Privacy() {
             target="_blank"
             rel="noreferrer"
           >
-            link.dhyandev.sbs
+            links.dhyandev.sbs
           </a>
           . Retention periods and a complete rights process must be finalized by the owner before
           launch.

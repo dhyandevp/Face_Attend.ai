@@ -33,7 +33,7 @@ A case-insensitive scan (`grep -ri "falcon" .`) returned **zero (0)** matches ac
 
 - **Framework:** Next.js 15 (App Router) + React 19 + TypeScript (strict mode)
 - **Styling:** Tailwind CSS v4 + Radix UI primitives + Lucide Icons
-- **Contact:** Direct links to developer email and portfolio (`mailto:`, `https://dhyandev.sbs`, `https://link.dhyandev.sbs`)
+- **Contact:** Direct links to developer email and portfolio (`mailto:`, `https://dhyandev.sbs`, `https://links.dhyandev.sbs`)
 - **Validation & Environment:** Zod schemas + typed environment loader via `@t3-oss/env-nextjs` (`src/env.ts`)
 - **Static Assets:** Self-contained in `public/assets/`
 - **Testing:** Vitest + React Testing Library (11 unit tests passing) + Playwright for end-to-end testing

@@ -105,5 +105,5 @@ The existing Vercel deployment and DNS configurations remain untouched as a fail
 
 ## License & Contact
 
-MIT License. Developed by [Dhyandev](https://dhyandev.sbs) ([Bio Links](https://link.dhyandev.sbs)).
+MIT License. Developed by [Dhyandev](https://dhyandev.sbs) ([Bio Links](https://links.dhyandev.sbs)).
 Contact: [dhyandevp@proton.me](mailto:dhyandevp@proton.me)

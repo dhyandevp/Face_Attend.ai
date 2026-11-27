@@ -73,7 +73,7 @@ export default function Terms() {
             target="_blank"
             rel="noreferrer"
           >
-            link.dhyandev.sbs
+            links.dhyandev.sbs
           </a>
           ).
         </p>

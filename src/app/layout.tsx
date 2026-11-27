@@ -116,7 +116,7 @@ export default function RootLayout({
           "@type": "Person",
           name: "Dhyandev",
           url: "https://dhyandev.sbs",
-          sameAs: ["https://link.dhyandev.sbs", "https://github.com/dhyandevp"],
+          sameAs: ["https://links.dhyandev.sbs", "https://github.com/dhyandevp"],
         },
       },
       {
@@ -140,7 +140,7 @@ export default function RootLayout({
           "@type": "Person",
           name: "Dhyandev",
           url: "https://dhyandev.sbs",
-          sameAs: ["https://link.dhyandev.sbs", "https://github.com/dhyandevp"],
+          sameAs: ["https://links.dhyandev.sbs", "https://github.com/dhyandevp"],
         },
         featureList: [
           "Haar Cascade Face Detection",

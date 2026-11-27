@@ -409,7 +409,7 @@ export default function Home() {
                     Developer links
                   </span>
                   <span className="mt-1.5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-foreground group-hover:text-primary transition-colors">
-                    <span>link.dhyandev.sbs</span>
+                    <span>links.dhyandev.sbs</span>
                     <ExternalLink
                       className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors"
                       aria-hidden="true"
@@ -457,7 +457,7 @@ export default function Home() {
                   rel="noreferrer"
                   className="inline-flex items-center px-3.5 h-10 rounded-full bg-white/10 hover:bg-white/20 hover:text-white text-sm font-medium transition-colors"
                 >
-                  link.dhyandev.sbs <ArrowUpRight className="size-3.5 ml-1" />
+                  links.dhyandev.sbs <ArrowUpRight className="size-3.5 ml-1" />
                 </a>
               </div>
             </div>
@@ -521,7 +521,7 @@ export default function Home() {
                         className="inline-flex items-center gap-2.5 text-night-foreground/85 hover:text-white transition-colors"
                       >
                         <ArrowUpRight className="size-4 text-sky-400 shrink-0" aria-hidden="true" />
-                        <span>link.dhyandev.sbs</span>
+                        <span>links.dhyandev.sbs</span>
                       </a>
                     </div>
                     <div className="flex items-center gap-2.5 text-night-foreground/70 pt-1">
